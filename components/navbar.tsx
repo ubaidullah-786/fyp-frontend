@@ -217,6 +217,7 @@ export function Navbar() {
     isLoggedIn,
     hasProjects,
     projectsChecked,
+    isOwner,
   ]);
 
   // If on report page or code editor page, show report tabs

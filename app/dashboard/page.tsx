@@ -54,17 +54,6 @@ export default function DashboardPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-        </div>
-      </div>
-    );
-  }
-
   if (!isAuthenticated || !hasProjects) {
     return null;
   }

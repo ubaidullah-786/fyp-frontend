@@ -79,8 +79,34 @@ export default function CodeEditorPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)] p-6">
-        <Skeleton className="h-8 w-64 mb-4" />
-        <Skeleton className="h-[600px] w-full" />
+        <div className="mb-4">
+          <Skeleton className="h-10 w-40 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+        </div>
+        <div className="flex gap-4 h-[calc(100vh-120px)]">
+          {/* File List Skeleton */}
+          <div className="w-64 bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-4 space-y-2">
+            <Skeleton className="h-6 w-32 mb-4 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Skeleton
+                key={i}
+                className="h-8 w-full bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]"
+              />
+            ))}
+          </div>
+          {/* Code View Skeleton */}
+          <div className="flex-1 bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-6">
+            <Skeleton className="h-8 w-48 mb-4 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+            <div className="space-y-2">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <Skeleton
+                  key={i}
+                  className="h-4 w-full bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]"
+                  style={{ width: `${Math.random() * 40 + 60}%` }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

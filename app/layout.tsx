@@ -8,7 +8,6 @@ import { LoggedInHeader } from "@/components/logged-in-header";
 import { Footer } from "@/components/footer";
 import { Suspense, useState, useEffect } from "react";
 import { ToastRenderer } from "@/components/ui/toast-renderer";
-import { Loader2 } from "lucide-react";
 import { getToken, onTokenChange } from "@/lib/auth";
 import { usePathname } from "next/navigation";
 
@@ -36,11 +35,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
   // Don't render anything until we know the login state
   if (isLoggedIn === null) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -100,13 +95,7 @@ export default function RootLayout({
           {/* ToastRenderer must be mounted high so toast() calls from Login/Header work */}
           <ToastRenderer />
 
-          <Suspense
-            fallback={
-              <div className="flex min-h-screen items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            }
-          >
+          <Suspense fallback={null}>
             <LayoutContent>{children}</LayoutContent>
           </Suspense>
         </ThemeProvider>

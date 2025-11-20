@@ -15,6 +15,7 @@ import {
 } from "@/lib/api";
 import { getUser } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Plus } from "lucide-react";
 import { TeamCard } from "@/components/teams/TeamCard";
 import { EditTeamDialog } from "@/components/teams/EditTeamDialog";
@@ -300,8 +301,55 @@ export default function TeamsPage() {
     return (
       <div className="min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)] p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center py-12">
-            <div className="text-[rgb(136,136,136)]">Loading teams...</div>
+          {/* Header */}
+          <div className="mb-8 flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)]">
+              Teams
+            </h1>
+            <Skeleton className="h-10 w-32 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Sidebar Skeleton */}
+            <div className="lg:w-64 flex-shrink-0 space-y-2">
+              <Skeleton className="h-16 w-full rounded-lg bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+              <Skeleton className="h-16 w-full rounded-lg bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+            </div>
+
+            {/* Team Cards Skeleton */}
+            <div className="flex-1 grid grid-cols-1 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-6"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="space-y-2 flex-1">
+                      <Skeleton className="h-8 w-32 rounded-md bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                      <Skeleton className="h-4 w-48 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                    </div>
+                    <div className="flex gap-2">
+                      <Skeleton className="h-9 w-9 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                      <Skeleton className="h-9 w-9 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                    </div>
+                  </div>
+                  <div className="grid gap-8 md:grid-cols-2">
+                    <div className="space-y-3">
+                      <Skeleton className="h-5 w-24 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                      {[1, 2].map((j) => (
+                        <div key={j} className="flex items-center gap-2">
+                          <Skeleton className="h-8 w-8 rounded-full bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                          <div className="flex-1 space-y-2">
+                            <Skeleton className="h-4 w-32 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                            <Skeleton className="h-3 w-24 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

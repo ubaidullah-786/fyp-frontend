@@ -351,12 +351,58 @@ export default function ReportPage() {
     return (
       <div className="min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
-          <Skeleton className="h-8 w-64 mb-4" />
-          <Skeleton className="h-4 w-96 mb-8" />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <Skeleton key={i} className="h-32" />
+          {/* Back Button Skeleton */}
+          <div className="mb-4">
+            <Skeleton className="h-10 w-40 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+          </div>
+
+          {/* Header Skeleton */}
+          <div className="mb-6 sm:mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+              <div className="flex-1 space-y-3">
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-8 w-64 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                  <Skeleton className="h-6 w-12 rounded-xl bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                </div>
+                <Skeleton className="h-4 w-96 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+              </div>
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-10 w-32 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                <Skeleton className="h-10 w-32 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[1px] bg-[rgb(237,237,237)] dark:bg-[rgb(237,237,237)]/15 mb-6 sm:mb-8" />
+
+          {/* Stats Grid Skeleton - Number on top, text below */}
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-4 mb-8">
+            {[
+              "Total Files",
+              "Affected Files",
+              "Code Smells",
+              "Code Quality",
+            ].map((label) => (
+              <div key={label} className="text-center">
+                <Skeleton className="h-12 sm:h-16 w-24 mx-auto mb-3 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+                <p className="text-sm sm:text-base text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+                  {label}
+                </p>
+              </div>
             ))}
+          </div>
+
+          {/* Chart Skeleton */}
+          <div className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-6">
+            <Skeleton className="h-6 w-64 mb-6 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <Skeleton
+                  key={i}
+                  className="h-20 w-full bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
