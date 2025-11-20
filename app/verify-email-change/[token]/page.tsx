@@ -67,12 +67,14 @@ export default function VerifyEmailChangePage() {
   };
 
   return (
-    <main className="mx-auto max-w-md px-4 py-16">
-      <div className="rounded-lg border bg-card p-6 text-center">
+    <main className="mx-auto max-w-md px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+      <div className="rounded-lg border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] p-6 sm:p-8 text-center">
         {status === "loading" && (
           <>
-            <h1 className="text-2xl font-semibold">Verifying...</h1>
-            <p className="text-muted-foreground mt-2 text-sm">
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+              Verifying...
+            </h1>
+            <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
               Please wait while we verify your email.
             </p>
           </>
@@ -80,34 +82,24 @@ export default function VerifyEmailChangePage() {
 
         {status === "success" && (
           <>
-            <div className="mb-4 flex justify-center">
-              <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
-                <svg
-                  className="h-8 w-8 text-green-600"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-            </div>
-            <h1 className="text-2xl font-semibold text-green-600">
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-green-600">
               Email Verified!
             </h1>
-            <p className="text-muted-foreground mt-2 text-sm">{message}</p>
-            <p className="text-muted-foreground mt-3 text-sm">
+            <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
+              {message}
+            </p>
+            <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-3 text-sm sm:text-base">
               You can close this tab and return to your previous window. Your
               profile will be updated once you refresh that page.
             </p>
             <div className="mt-6">
-              <Button onClick={handleCloseAndReturn} className="w-full">
+              <Button
+                onClick={handleCloseAndReturn}
+                className="w-full h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)]"
+              >
                 Close this tab
               </Button>
-              <p className="text-xs text-muted-foreground mt-2">
+              <p className="text-xs text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2">
                 If the tab doesn't close automatically, you can close it
                 manually
               </p>
@@ -117,27 +109,17 @@ export default function VerifyEmailChangePage() {
 
         {status === "error" && (
           <>
-            <div className="mb-4 flex justify-center">
-              <div className="h-16 w-16 rounded-full bg-red-100 flex items-center justify-center">
-                <svg
-                  className="h-8 w-8 text-red-600"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </div>
-            </div>
-            <h1 className="text-2xl font-semibold text-red-600">
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-red-600">
               Verification Failed
             </h1>
-            <p className="text-muted-foreground mt-2 text-sm">{message}</p>
+            <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
+              {message}
+            </p>
             <div className="mt-6">
-              <Button onClick={() => window.close()} className="w-full">
+              <Button
+                onClick={() => window.close()}
+                className="w-full h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)]"
+              >
                 Close this tab
               </Button>
             </div>

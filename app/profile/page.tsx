@@ -7,11 +7,11 @@ import { Input } from "@/components/ui/input";
 import { apiFetch, ApiFetchOptions } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { API_BASE_URL } from "@/lib/config";
-import { Pen, User as UserIcon } from "lucide-react";
+import { Pen, User as UserIcon, Eye, EyeOff } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { ProtectedClient } from "@/components/auth/protected-client";
 import { format } from "date-fns";
-import { clearToken, clearUser } from "@/lib/auth";
+import { clearToken, clearUser, setToken } from "@/lib/auth";
 
 function formatTime(dateString?: string) {
   if (!dateString) return "—";
@@ -266,9 +266,15 @@ function AccountUI() {
   // editable values
   const [tempName, setTempName] = useState("");
   const [tempEmail, setTempEmail] = useState("");
+  const [originalEmail, setOriginalEmail] = useState(""); // Track original email
   const [currPassword, setCurrPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+
+  // Password visibility states
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // general UI state
   const [saving, setSaving] = useState(false);
@@ -291,6 +297,7 @@ function AccountUI() {
           setUser(u);
           setTempName(u.name ?? "");
           setTempEmail(u.email ?? "");
+          setOriginalEmail(u.email ?? ""); // Store original email
         }
       }
       setLoading(false);
@@ -504,7 +511,6 @@ function AccountUI() {
       }
     }
 
-    if ((data as any)?.message) setMessage((data as any).message);
     setEditingField(null);
     toast({
       title: `${field === "name" ? "Name" : "Email"} updated`,
@@ -547,6 +553,11 @@ function AccountUI() {
     if (!ok) {
       setError((error?.message as string) || "Password update failed");
       return;
+    }
+
+    // Extract and save new JWT token from response
+    if ((data as any)?.token) {
+      setToken((data as any).token);
     }
 
     // success: clear fields and refresh user for passwordChangedAt
@@ -624,13 +635,13 @@ function AccountUI() {
                 </div>
               )}
 
-              {/* edit icon inside avatar circle (bottom-right) - only show if edit controls are enabled */}
+              {/* edit icon outside avatar circle (bottom-right) - only show if edit controls are enabled */}
               {showEditControls && !uploading && (
                 <button
                   type="button"
                   onClick={triggerFileChooser}
                   title="Change profile photo"
-                  className="absolute right-1 bottom-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/90 shadow hover:bg-background/100 border border-border cursor-pointer"
+                  className="absolute -right-1 -bottom-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/90 shadow hover:bg-background/100 border border-border cursor-pointer"
                 >
                   <Pen className="h-4 w-4" />
                 </button>
@@ -661,10 +672,14 @@ function AccountUI() {
                 className="w-full cursor-pointer bg-[rgb(0,0,0)] text-white hover:bg-[rgb(40,40,40)] dark:bg-white dark:text-[rgb(0,0,0)] dark:hover:bg-[rgb(220,220,220)] transition-colors"
                 variant={showEditControls ? "secondary" : undefined}
                 onClick={() => {
-                  setShowEditControls((v) => !v);
+                  const newState = !showEditControls;
+                  setShowEditControls(newState);
                   setEditingField(null);
-                  setMessage(null);
-                  setError(null);
+                  // Only clear messages when closing editor completely
+                  if (!newState) {
+                    setMessage(null);
+                    setError(null);
+                  }
                 }}
               >
                 {showEditControls ? "Close editor" : "Edit account information"}
@@ -714,8 +729,6 @@ function AccountUI() {
                       onClick={() => {
                         setEditingField(null);
                         setTempName(user?.name ?? "");
-                        setMessage(null);
-                        setError(null);
                       }}
                       className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                     >
@@ -782,8 +795,8 @@ function AccountUI() {
                   <div className="mt-3 flex gap-2 items-center">
                     <Button
                       onClick={() => updateField("email")}
-                      disabled={saving}
-                      className="cursor-pointer bg-[rgb(0,0,0)] text-white hover:bg-[rgb(40,40,40)] dark:bg-white dark:text-[rgb(0,0,0)] dark:hover:bg-[rgb(220,220,220)] transition-colors"
+                      disabled={saving || tempEmail === originalEmail}
+                      className="cursor-pointer bg-[rgb(0,0,0)] text-white hover:bg-[rgb(40,40,40)] dark:bg-white dark:text-[rgb(0,0,0)] dark:hover:bg-[rgb(220,220,220)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {saving ? "Saving..." : "Update"}
                     </Button>
@@ -792,8 +805,6 @@ function AccountUI() {
                       onClick={() => {
                         setEditingField(null);
                         setTempEmail(user?.email ?? "");
-                        setMessage(null);
-                        setError(null);
                       }}
                       className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                     >
@@ -817,18 +828,18 @@ function AccountUI() {
 
                   {user?.pendingEmail ? (
                     <div className="mt-2">
-                      <div className="text-xs sm:text-sm">
+                      <div className="mt-3 text-xs sm:text-sm">
                         Pending:{" "}
                         <span className="font-medium">{user.pendingEmail}</span>{" "}
                         <span className="ml-2 inline-flex items-center gap-2 rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800">
                           Unverified
                         </span>
                       </div>
-                      <div className="mt-1 text-xs sm:text-sm text-muted-foreground">
+                      <div className="mt-1 text-xs sm:text-sm text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
                         A verification email has been sent to your pending
                         email. Open the link to confirm the change.
                       </div>
-                      <div className="mt--2 flex gap-2">
+                      <div className="mt-3 flex gap-2">
                         <Button
                           variant="ghost"
                           onClick={cancelPendingEmail}
@@ -871,27 +882,88 @@ function AccountUI() {
                 {editingField === "password" ? (
                   <>
                     <div className="mt-3 grid gap-3">
-                      <Input
-                        placeholder="Current password"
-                        type="password"
-                        value={currPassword}
-                        onChange={(e) => setCurrPassword(e.target.value)}
-                        className="border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
-                      />
-                      <Input
-                        placeholder="New password"
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        className="border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
-                      />
-                      <Input
-                        placeholder="Confirm new password"
-                        type="password"
-                        value={newPasswordConfirm}
-                        onChange={(e) => setNewPasswordConfirm(e.target.value)}
-                        className="border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
-                      />
+                      <div className="relative">
+                        <Input
+                          placeholder="Current password"
+                          type={showCurrentPassword ? "text" : "password"}
+                          value={currPassword}
+                          onChange={(e) => setCurrPassword(e.target.value)}
+                          className="pr-10 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)] dark:placeholder:text-[rgb(136,136,136)]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setShowCurrentPassword(!showCurrentPassword)
+                          }
+                          tabIndex={-1}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+                          aria-label={
+                            showCurrentPassword
+                              ? "Hide password"
+                              : "Show password"
+                          }
+                        >
+                          {showCurrentPassword ? (
+                            <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
+                          ) : (
+                            <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
+                          )}
+                        </button>
+                      </div>
+                      <div className="relative">
+                        <Input
+                          placeholder="New password"
+                          type={showNewPassword ? "text" : "password"}
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className="pr-10 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)] dark:placeholder:text-[rgb(136,136,136)]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowNewPassword(!showNewPassword)}
+                          tabIndex={-1}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+                          aria-label={
+                            showNewPassword ? "Hide password" : "Show password"
+                          }
+                        >
+                          {showNewPassword ? (
+                            <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
+                          ) : (
+                            <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
+                          )}
+                        </button>
+                      </div>
+                      <div className="relative">
+                        <Input
+                          placeholder="Confirm new password"
+                          type={showConfirmPassword ? "text" : "password"}
+                          value={newPasswordConfirm}
+                          onChange={(e) =>
+                            setNewPasswordConfirm(e.target.value)
+                          }
+                          className="pr-10 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)] dark:placeholder:text-[rgb(136,136,136)]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                          tabIndex={-1}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+                          aria-label={
+                            showConfirmPassword
+                              ? "Hide password"
+                              : "Show password"
+                          }
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" />
+                          ) : (
+                            <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                     <div className="mt-3 flex gap-2">
                       <Button
@@ -908,8 +980,9 @@ function AccountUI() {
                           setCurrPassword("");
                           setNewPassword("");
                           setNewPasswordConfirm("");
-                          setMessage(null);
-                          setError(null);
+                          setShowCurrentPassword(false);
+                          setShowNewPassword(false);
+                          setShowConfirmPassword(false);
                         }}
                         className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                       >

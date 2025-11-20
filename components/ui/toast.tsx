@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { cva, type VariantProps } from "class-variance-authority";
-import { X, CheckCircle2, XCircle } from "lucide-react";
+import { X, Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -30,9 +30,9 @@ const toastVariants = cva(
     variants: {
       variant: {
         default:
-          "border-[1.3px] border-[rgb(34,197,94)] bg-white dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)]",
+          "border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] text-[rgb(237,237,237)] dark:text-[rgb(237,237,237)]",
         destructive:
-          "border-[1.3px] border-[rgb(239,68,68)] bg-white dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)]",
+          "border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] text-[rgb(237,237,237)] dark:text-[rgb(237,237,237)]",
       },
     },
     defaultVariants: {
@@ -45,21 +45,19 @@ const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
     VariantProps<typeof toastVariants>
->(({ className, variant, ...props }, ref) => {
-  const Icon = variant === "destructive" ? XCircle : CheckCircle2;
-  const iconColor =
-    variant === "destructive"
-      ? "text-[rgb(239,68,68)]"
-      : "text-[rgb(34,197,94)]";
-
+>(({ className, variant, children, ...props }, ref) => {
   return (
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
       {...props}
     >
-      <Icon className={cn("h-5 w-5 flex-shrink-0", iconColor)} />
-      <div className="flex-1">{props.children}</div>
+      {variant === "destructive" ? (
+        <X className="h-5 w-5 flex-shrink-0 text-[rgb(239,68,68)]" />
+      ) : (
+        <Check className="h-5 w-5 flex-shrink-0 text-[rgb(34,197,94)]" />
+      )}
+      <div className="flex-1">{children}</div>
     </ToastPrimitives.Root>
   );
 });

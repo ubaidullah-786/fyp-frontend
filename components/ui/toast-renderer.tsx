@@ -12,7 +12,6 @@ import {
   ToastAction,
 } from "@/components/ui/toast";
 import { useToast as useToastHook } from "@/hooks/use-toast";
-import ToastProgressBar from "@/components/ui/toast-progress";
 
 /**
  * ToastRenderer
@@ -43,25 +42,18 @@ export function ToastRenderer() {
           <Toast
             key={t.id}
             open={open}
-            // pass same duration to Radix so it auto-dismisses in sync
             duration={dur}
             onOpenChange={(isOpen) => {
               if (!isOpen) {
-                // delegate to your hook's dismiss
                 dismiss?.(t.id);
               }
             }}
-            // optionally pass variant if you store it
-            // variant={(t as any).variant}
+            variant={(t as any).variant || "default"}
           >
-            {/* progress bar: top thin green line that animates over `dur` */}
-            <ToastProgressBar duration={dur} />
-
             {t.title ? <ToastTitle>{t.title}</ToastTitle> : null}
             {t.description ? (
               <ToastDescription>{t.description}</ToastDescription>
             ) : null}
-            <ToastClose />
           </Toast>
         );
       })}

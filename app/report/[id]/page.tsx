@@ -452,7 +452,7 @@ export default function ReportPage() {
           <Button
             onClick={() => router.push("/dashboard")}
             variant="outline"
-            className="h-10 px-4 text-sm !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!bg-[rgb(245,245,245)] dark:hover:!bg-[rgb(20,20,20)] hover:!text-[rgb(237,237,237)] !transition-all gap-2 text-[rgb(136,136,136)]"
+            className="h-10 px-4 text-sm !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!bg-[rgb(245,245,245)] dark:hover:!bg-[rgb(20,20,20)] hover:!text-[rgb(237,237,237)] !transition-all gap-2 text-[rgb(136,136,136)] cursor-pointer"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Dashboard
@@ -724,7 +724,7 @@ export default function ReportPage() {
                   <Button
                     onClick={handleSaveChanges}
                     disabled={saving}
-                    className="w-full h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)]"
+                    className="w-full h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] cursor-pointer"
                   >
                     {saving ? (
                       <>
