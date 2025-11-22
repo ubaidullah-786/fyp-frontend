@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getToken } from "@/lib/auth";
 import { apiFetch } from "@/lib/api";
@@ -131,13 +132,21 @@ export default function ProjectsPage() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
-      <div className="mb-8 sm:mb-10">
-        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-          Projects
-        </h1>
-        <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
-          Manage and monitor all your code quality projects
-        </p>
+      <div className="mb-8 sm:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+            Projects
+          </h1>
+          <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
+            Manage and monitor all your code quality projects
+          </p>
+        </div>
+        <Link href="/upload">
+          <Button className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] whitespace-nowrap cursor-pointer">
+            <Plus className="h-4 w-4" />
+            Upload Project
+          </Button>
+        </Link>
       </div>
 
       <div className="mb-6">

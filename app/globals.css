@@ -239,6 +239,16 @@
   }
 }
 
+/* Custom keyframe animation for circular progress disappearing clockwise */
+@keyframes disappear-clockwise {
+  from {
+    stroke-dashoffset: 283;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Smooth transitions - must be outside @layer */
 .transition-smooth {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);

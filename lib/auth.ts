@@ -12,7 +12,6 @@ type ProjectsChangeHandler = (hasProjects: boolean) => void;
 
 const TOKEN_KEY = "auth-token";
 const USER_KEY = "user";
-const HAS_PROJECTS_KEY = "has-projects";
 const subscribers: Set<TokenChangeHandler> = new Set();
 const userSubscribers: Set<UserChangeHandler> = new Set();
 const projectsSubscribers: Set<ProjectsChangeHandler> = new Set();
@@ -96,29 +95,6 @@ function notifyUser(user: UserInfo | null) {
       fn(user);
     } catch {}
   });
-}
-
-export function setHasProjects(hasProjects: boolean) {
-  try {
-    localStorage.setItem(HAS_PROJECTS_KEY, JSON.stringify(hasProjects));
-    notifyProjects(hasProjects);
-  } catch {}
-}
-
-export function getHasProjects(): boolean | null {
-  try {
-    const raw = localStorage.getItem(HAS_PROJECTS_KEY);
-    return raw ? (JSON.parse(raw) as boolean) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function clearHasProjects() {
-  try {
-    localStorage.removeItem(HAS_PROJECTS_KEY);
-    notifyProjects(false);
-  } catch {}
 }
 
 function notifyProjects(hasProjects: boolean) {

@@ -77,39 +77,32 @@ export default function LoginPage() {
 
     toast({ title: "Signed in successfully", duration: 2500 });
 
-    // Check projects and teams to determine redirect
+    // Check projects to determine redirect
     try {
-      const [projectsRes, teamsRes] = await Promise.all([
-        fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/projects/get-all-projects`,
-          {
-            credentials: "include",
-          }
-        ),
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/teams/my-teams`, {
+      const projectsRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/projects`,
+        {
+          method: "GET",
           credentials: "include",
-        }),
-      ]);
-
-      let hasProjects = false;
-      let hasTeams = false;
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
 
       if (projectsRes.ok) {
         const projectsData = await projectsRes.json();
-        hasProjects = (projectsData?.data?.projects?.length || 0) > 0;
-      }
+        const totalProjects = projectsData?.totalProjects || 0;
 
-      if (teamsRes.ok) {
-        const teamsData = await teamsRes.json();
-        const myTeams = teamsData?.data?.myTeams || [];
-        const addedToTeams = teamsData?.data?.addedToTeams || [];
-        hasTeams = myTeams.length + addedToTeams.length > 0;
-      }
-
-      // Redirect logic: if has projects or teams with projects -> dashboard, else -> upload
-      if (hasProjects || hasTeams) {
-        router.push("/dashboard");
+        if (totalProjects > 0) {
+          // User has projects (personal or team), redirect to projects page
+          router.push("/projects");
+        } else {
+          // No projects, redirect to upload
+          router.push("/upload");
+        }
       } else {
+        // Fallback to upload if check fails
         router.push("/upload");
       }
     } catch (err) {

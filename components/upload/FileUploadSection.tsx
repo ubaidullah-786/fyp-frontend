@@ -10,6 +10,7 @@ interface FileUploadSectionProps {
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
   uploadProgress: number;
+  fileLoading: boolean;
 }
 
 export function FileUploadSection({
@@ -18,6 +19,7 @@ export function FileUploadSection({
   handleFileChange,
   loading,
   uploadProgress,
+  fileLoading,
 }: FileUploadSectionProps) {
   return (
     <div className="grid gap-2">
@@ -27,10 +29,47 @@ export function FileUploadSection({
 
       {file ? (
         <div className="space-y-2">
-          <div className="flex items-center justify-between p-4 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg bg-white dark:bg-[rgb(10,10,10)]">
+          <div className="relative flex items-center justify-between p-4 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg bg-white dark:bg-[rgb(10,10,10)]">
             <div className="flex items-center gap-3">
-              <FileArchive className="h-8 w-8 text-[rgb(82,168,255)]" />
-              <div>
+              <div className="relative">
+                <FileArchive
+                  className={`h-8 w-8 text-[rgb(82,168,255)] transition-opacity duration-300 ${
+                    fileLoading ? "opacity-30" : "opacity-100"
+                  }`}
+                />
+                {/* Circular progress overlay during file loading */}
+                {fileLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <svg className="w-12 h-12 -rotate-90" viewBox="0 0 100 100">
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="rgba(82,168,255,0.2)"
+                        strokeWidth="8"
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="rgb(82,168,255)"
+                        strokeWidth="8"
+                        strokeDasharray="283"
+                        strokeDashoffset="283"
+                        strokeLinecap="round"
+                        className="animate-[disappear-clockwise_1s_ease-out_forwards]"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div
+                className={`transition-opacity duration-300 ${
+                  fileLoading ? "opacity-30" : "opacity-100"
+                }`}
+              >
                 <p className="text-sm font-medium text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)]">
                   {file.name}
                 </p>
@@ -39,20 +78,23 @@ export function FileUploadSection({
                 </p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                setFile(null);
-                const input = document.getElementById(
-                  "file"
-                ) as HTMLInputElement;
-                if (input) input.value = "";
-              }}
-              className="p-1 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-md transition-colors cursor-pointer"
-              disabled={loading}
-            >
-              <X className="w-5 h-5 text-red-500" />
-            </button>
+            {/* Remove button - only show when not loading */}
+            {!fileLoading && (
+              <button
+                type="button"
+                onClick={() => {
+                  setFile(null);
+                  const input = document.getElementById(
+                    "file"
+                  ) as HTMLInputElement;
+                  if (input) input.value = "";
+                }}
+                className="p-1 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-md transition-colors cursor-pointer"
+                disabled={loading}
+              >
+                <X className="w-5 h-5 text-red-500" />
+              </button>
+            )}
           </div>
           {loading && uploadProgress > 0 && (
             <div className="space-y-1">

@@ -4,14 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Settings } from "lucide-react";
-import {
-  getToken,
-  onTokenChange,
-  getHasProjects,
-  onProjectsChange,
-  setHasProjects as cacheHasProjects,
-  getUser,
-} from "@/lib/auth";
+import { getToken, onTokenChange, onProjectsChange, getUser } from "@/lib/auth";
 import { apiFetch } from "@/lib/api";
 
 const navItems = [
@@ -92,13 +85,7 @@ export function Navbar() {
     setIsLoggedIn(token);
 
     if (token) {
-      // Check cached value first
-      const cached = getHasProjects();
-      if (cached !== null) {
-        setHasProjects(cached);
-        setProjectsChecked(true);
-      }
-      // Then fetch fresh data
+      // Fetch fresh data from API
       checkUserProjects();
     } else {
       setProjectsChecked(true);
@@ -128,16 +115,15 @@ export function Navbar() {
 
   const checkUserProjects = async () => {
     try {
-      const response = await apiFetch<{ data: { projects: any[] } }>(
-        "/api/v1/projects/get-all-projects",
-        { auth: true }
-      );
+      const response = await apiFetch<{
+        totalProjects: number;
+        data: { projects: any[] };
+      }>("/api/v1/projects", { auth: true });
 
       if (response.ok && response.data) {
-        const projects = response.data.data.projects;
-        const hasProjectsValue = projects.length > 0;
+        const totalProjects = response.data.totalProjects || 0;
+        const hasProjectsValue = totalProjects > 0;
         setHasProjects(hasProjectsValue);
-        cacheHasProjects(hasProjectsValue); // Cache the result
       }
     } catch (err) {
       console.error("Error checking projects:", err);

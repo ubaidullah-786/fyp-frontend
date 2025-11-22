@@ -54,7 +54,7 @@ export function LoggedInHeader() {
           <div style={{ width: "calc(1rem + 2rem)" }}></div>
 
           {/* Code Doctor + Profile with space between */}
-          <div className="flex items-center justify-between flex-1 ml-5">
+          <div className="flex items-center justify-between flex-1 ml-5 xl:ml-3">
             <span className="text-foreground font-semibold text-base sm:text-lg">
               Code Doctor
             </span>

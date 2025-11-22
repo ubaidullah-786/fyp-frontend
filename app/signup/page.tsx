@@ -29,7 +29,7 @@ export default function SignupPage() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [photo, setPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [imageUploading, setImageUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -112,7 +112,6 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setUploadProgress(0);
 
     const formData = new FormData();
     formData.append("name", name);
@@ -127,9 +126,6 @@ export default function SignupPage() {
       {
         method: "POST",
         body: formData,
-        onUploadProgress: (progress) => {
-          setUploadProgress(progress);
-        },
       }
     );
 
@@ -313,43 +309,66 @@ export default function SignupPage() {
           {photoPreview ? (
             <div className="space-y-2">
               <div className="relative w-32 h-32 mx-auto">
-                <Image
-                  src={photoPreview}
-                  alt="Profile preview"
-                  fill
-                  className="object-cover rounded-full"
-                  sizes="128px"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setPhoto(null);
-                    setPhotoPreview(null);
-                    const input = document.getElementById(
-                      "photo"
-                    ) as HTMLInputElement;
-                    if (input) input.value = "";
-                  }}
-                  className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg cursor-pointer"
-                  aria-label="Remove photo"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              {loading && uploadProgress > 0 && (
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-[rgb(136,136,136)]">
-                    <span>Uploading...</span>
-                    <span>{uploadProgress}%</span>
-                  </div>
-                  <div className="w-full bg-[rgb(237,237,237)] dark:bg-[rgb(237,237,237)]/15 rounded-full h-2">
-                    <div
-                      className="bg-[rgb(82,168,255)] h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${uploadProgress}%` }}
-                    />
-                  </div>
+                {/* Image with optional fade overlay during upload */}
+                <div className="relative w-full h-full">
+                  <Image
+                    src={photoPreview}
+                    alt="Profile preview"
+                    fill
+                    className="object-cover rounded-full"
+                    sizes="128px"
+                  />
+                  {/* Faded overlay during image upload */}
+                  {imageUploading && (
+                    <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                      {/* Circular progress indicator */}
+                      <svg
+                        className="w-16 h-16 -rotate-90"
+                        viewBox="0 0 100 100"
+                      >
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.2)"
+                          strokeWidth="8"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="8"
+                          strokeDasharray="283"
+                          strokeDashoffset="283"
+                          strokeLinecap="round"
+                          className="animate-[disappear-clockwise_1s_ease-out_forwards]"
+                        />
+                      </svg>
+                    </div>
+                  )}
                 </div>
-              )}
+                {/* Remove button - only show when not uploading */}
+                {!imageUploading && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPhoto(null);
+                      setPhotoPreview(null);
+                      const input = document.getElementById(
+                        "photo"
+                      ) as HTMLInputElement;
+                      if (input) input.value = "";
+                    }}
+                    className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg cursor-pointer"
+                    aria-label="Remove photo"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
             </div>
           ) : (
             <label
@@ -387,13 +406,21 @@ export default function SignupPage() {
                 return;
               }
 
-              setPhoto(file);
               setError(null);
+              setImageUploading(true);
 
               // Create preview
               const reader = new FileReader();
+              reader.onloadstart = () => {
+                setImageUploading(true);
+              };
               reader.onloadend = () => {
                 setPhotoPreview(reader.result as string);
+                setPhoto(file);
+                // Simulate upload completion with animation duration
+                setTimeout(() => {
+                  setImageUploading(false);
+                }, 1000); // 1 second to match animation
               };
               reader.readAsDataURL(file);
             }}
@@ -405,10 +432,14 @@ export default function SignupPage() {
         ) : null}
         <Button
           type="submit"
-          disabled={loading}
-          className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] cursor-pointer"
+          disabled={loading || imageUploading}
+          className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? "Creating..." : "Sign up"}
+          {loading
+            ? "Creating account..."
+            : imageUploading
+            ? "Uploading image..."
+            : "Sign up"}
         </Button>
       </form>
       <div className="mt-6 text-sm sm:text-base">

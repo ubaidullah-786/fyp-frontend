@@ -7,10 +7,11 @@ import { forwardRef } from "react";
 interface AlertMessagesProps {
   success: boolean;
   error: string | null;
+  uploadSuccess?: boolean;
 }
 
 export const AlertMessages = forwardRef<HTMLDivElement, AlertMessagesProps>(
-  ({ success, error }, ref) => {
+  ({ success, error, uploadSuccess }, ref) => {
     return (
       <>
         {/* Success Alert */}
@@ -18,7 +19,7 @@ export const AlertMessages = forwardRef<HTMLDivElement, AlertMessagesProps>(
           <Alert className="mt-6 border-green-500/30 bg-green-50 dark:bg-green-900/20">
             <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-500" />
             <AlertDescription className="text-green-700 dark:text-green-400 text-sm sm:text-base">
-              Project uploaded successfully! Redirecting to report...
+              Analysis completed! Redirecting to report...
             </AlertDescription>
           </Alert>
         )}

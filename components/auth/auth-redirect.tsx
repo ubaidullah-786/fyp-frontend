@@ -32,19 +32,28 @@ export function AuthRedirect() {
           }
         );
 
+        console.log("Auth redirect - Response status:", response.status);
+
         if (response.ok) {
           const data = await response.json();
+          console.log("Auth redirect - Response data:", data);
           const totalProjects = data?.totalProjects || 0;
+          console.log("Auth redirect - Total projects:", totalProjects);
 
           if (totalProjects > 0) {
-            // User has projects, redirect to dashboard
-            router.replace("/dashboard");
+            // User has projects, redirect to projects page
+            console.log("Auth redirect - Redirecting to /projects");
+            router.replace("/projects");
           } else {
             // No projects, redirect to upload
+            console.log("Auth redirect - Redirecting to /upload (no projects)");
             router.replace("/upload");
           }
         } else {
           // Error fetching projects, redirect to upload as fallback
+          console.log(
+            "Auth redirect - Response not ok, redirecting to /upload"
+          );
           router.replace("/upload");
         }
       } catch (error) {

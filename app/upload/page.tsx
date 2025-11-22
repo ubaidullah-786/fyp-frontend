@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { getToken, setHasProjects, getUser } from "@/lib/auth";
+import { getToken, getUser } from "@/lib/auth";
 import {
   apiFetch,
   createTeam,
@@ -50,10 +50,14 @@ export default function UploadPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [fileLoading, setFileLoading] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analysisMessage, setAnalysisMessage] = useState("");
 
   // Team-related states
   const [uploadToTeam, setUploadToTeam] = useState<"no" | "yes">("no");
@@ -192,8 +196,23 @@ export default function UploadPage() {
         setFile(null);
         return;
       }
-      setFile(selectedFile);
+
       setError(null);
+      setFileLoading(true);
+
+      // Read the file to simulate loading into browser
+      const reader = new FileReader();
+      reader.onloadstart = () => {
+        setFileLoading(true);
+      };
+      reader.onloadend = () => {
+        setFile(selectedFile);
+        // Keep the loading state for animation completion
+        setTimeout(() => {
+          setFileLoading(false);
+        }, 1000); // 1 second to match the animation duration
+      };
+      reader.readAsArrayBuffer(selectedFile);
     }
   };
 
@@ -356,7 +375,11 @@ export default function UploadPage() {
         }
       }
 
-      const response = await apiFetch<{ project: { _id: string } }>(endpoint, {
+      const response = await apiFetch<{
+        project: { _id: string };
+        analyzing?: boolean;
+        jobId?: string;
+      }>(endpoint, {
         method,
         body: formData,
         auth: true,
@@ -366,20 +389,113 @@ export default function UploadPage() {
       });
 
       if (response.ok && response.data) {
-        setSuccess(true);
-        setHasProjects(true);
-        setTimeout(() => {
-          router.push(`/report/${response.data!.project._id}`);
-        }, 1500);
+        // Upload completed
+        setLoading(false);
+        setUploadProgress(100);
+        setUploadSuccess(true);
+
+        // Check if analysis is happening asynchronously
+        if (response.data.analyzing && response.data.jobId) {
+          setAnalyzing(true);
+          setAnalysisMessage("Analyzing your project...");
+
+          // After 5 seconds, update message to indicate large project
+          const timer = setTimeout(() => {
+            setAnalysisMessage(
+              "Analyzing your project. Large project detected, this may take some time..."
+            );
+          }, 5000);
+
+          // Start polling for analysis completion
+          const projectId = response.data.project._id;
+          const jobId = response.data.jobId;
+          pollAnalysisStatus(jobId, projectId, timer);
+        } else {
+          // Analysis completed immediately (small project)
+          setSuccess(true);
+          setTimeout(() => {
+            router.push(`/report/${response.data!.project._id}`);
+          }, 1500);
+        }
       } else {
         throw new Error(response.error || "Failed to upload project");
       }
     } catch (err: any) {
       console.error("Error uploading project:", err);
       setError(err.message || "Failed to upload project. Please try again.");
-    } finally {
       setLoading(false);
     }
+  };
+
+  const pollAnalysisStatus = async (
+    jobId: string,
+    projectId: string,
+    timer?: NodeJS.Timeout
+  ) => {
+    const maxAttempts = 180; // 6 minutes max (180 * 2 seconds)
+    let attempts = 0;
+
+    const poll = async () => {
+      try {
+        const response = await apiFetch<{
+          analysisStatus: string;
+          project?: { _id: string };
+          error?: string;
+        }>(`/api/v1/projects/analysis-status/${jobId}`, {
+          method: "GET",
+          auth: true,
+        });
+
+        if (response.ok && response.data) {
+          const { analysisStatus, project, error } = response.data;
+
+          if (analysisStatus === "completed" && project) {
+            if (timer) clearTimeout(timer);
+            setAnalyzing(false);
+            setSuccess(true);
+
+            setTimeout(() => {
+              router.push(`/report/${projectId}`);
+            }, 1500);
+            return;
+          }
+
+          if (analysisStatus === "failed") {
+            if (timer) clearTimeout(timer);
+            setAnalyzing(false);
+            setError(error || "Analysis failed. Please try again.");
+            return;
+          }
+
+          // Still analyzing or pending
+          attempts++;
+          if (attempts >= maxAttempts) {
+            if (timer) clearTimeout(timer);
+            setAnalyzing(false);
+            setError(
+              "Analysis is taking longer than expected. Please check your project later."
+            );
+            return;
+          }
+
+          // Continue polling
+          setTimeout(poll, 2000); // Poll every 2 seconds
+        } else {
+          throw new Error(response.error || "Failed to check analysis status");
+        }
+      } catch (err: any) {
+        console.error("Error polling analysis status:", err);
+        if (timer) clearTimeout(timer);
+        setAnalyzing(false);
+        setError(
+          err.message ||
+            "Failed to check analysis status. Please refresh the page."
+        );
+      }
+    };
+
+    // Start polling
+    poll();
   };
 
   if (!isAuthenticated) {
@@ -470,12 +586,14 @@ export default function UploadPage() {
               handleFileChange={handleFileChange}
               loading={loading}
               uploadProgress={uploadProgress}
+              fileLoading={fileLoading}
             />
 
             {/* Submit Button */}
             <SubmitButton
               loading={loading}
               success={success}
+              uploadSuccess={uploadSuccess}
               file={file}
               uploadProgress={uploadProgress}
             />
@@ -484,7 +602,22 @@ export default function UploadPage() {
       </Card>
 
       {/* Success and Error Alerts */}
-      <AlertMessages success={success} error={error} ref={errorRef} />
+      <AlertMessages
+        success={success}
+        error={error}
+        uploadSuccess={uploadSuccess}
+        ref={errorRef}
+      />
+
+      {/* Analyzing Alert */}
+      {analyzing && (
+        <Alert className="mt-6 border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/50">
+          <Loader2 className="h-4 w-4 animate-spin text-blue-600 dark:text-blue-400" />
+          <AlertDescription className="text-blue-800 dark:text-blue-200">
+            {analysisMessage}
+          </AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 }

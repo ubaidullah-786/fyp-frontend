@@ -284,7 +284,23 @@ export default function ReportPage() {
 
       // 204 means success with no content
       if (response.ok || response.status === 204) {
-        router.push("/dashboard");
+        // Check if user has remaining projects
+        const projectsRes = await apiFetch<any>("/api/v1/projects", {
+          method: "GET",
+          auth: true,
+        });
+
+        if (projectsRes.ok && projectsRes.data) {
+          const totalProjects = projectsRes.data.totalProjects || 0;
+          if (totalProjects > 0) {
+            router.push("/projects");
+          } else {
+            router.push("/upload");
+          }
+        } else {
+          // Fallback to projects page if check fails
+          router.push("/projects");
+        }
       } else {
         const errorMsg =
           response.error?.message ||
@@ -548,7 +564,7 @@ export default function ReportPage() {
 
         {/* Overview Tab */}
         {activeTab === "overview" && (
-          <div className="space-y-8">
+          <div className="max-w-6xl mx-auto space-y-8">
             {/* Stats Grid */}
             <div className="grid gap-6 sm:gap-8 md:grid-cols-4">
               <div className="text-center">
