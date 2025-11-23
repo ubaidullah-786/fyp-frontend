@@ -64,13 +64,15 @@ export function CustomRadioItem({
           groupDisabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
         style={{
-          backgroundColor: isSelected ? "rgb(82, 168, 255)" : "rgb(69, 69, 69)",
+          backgroundColor: isSelected
+            ? "rgb(0, 104, 214)"
+            : "rgb(201, 201, 201)",
         }}
       >
         {isSelected && (
           <Check
             className="w-3 h-3"
-            style={{ color: "rgb(10, 10, 10)" }}
+            style={{ color: "rgb(255, 255, 255)" }}
             strokeWidth={3}
           />
         )}
@@ -79,10 +81,11 @@ export function CustomRadioItem({
         htmlFor={id}
         className={`text-sm sm:text-base cursor-pointer transition-colors ${
           groupDisabled ? "opacity-50 cursor-not-allowed" : ""
+        } ${
+          isSelected
+            ? "text-[rgb(23,23,23)] dark:text-[rgb(255,255,255)]"
+            : "text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]"
         }`}
-        style={{
-          color: isSelected ? "rgb(255, 255, 255)" : "rgb(136, 136, 136)",
-        }}
         onClick={(e) => {
           if (!groupDisabled) {
             e.preventDefault();

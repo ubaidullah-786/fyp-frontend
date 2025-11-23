@@ -200,7 +200,7 @@ export function HeroSection() {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)]">
                   Improve Code Quality in Real-Time
                 </h2>
-                <p className="max-w-[600px] text-[rgb(136,136,136)] md:text-xl">
+                <p className="max-w-[600px] text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] md:text-xl">
                   Code Doctor analyzes your code as you write, providing
                   immediate feedback and suggestions for improvement.
                 </p>

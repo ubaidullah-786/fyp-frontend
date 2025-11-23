@@ -101,7 +101,7 @@ export function DashboardCards() {
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="text-center">
               <Skeleton className="h-12 sm:h-16 w-24 mx-auto mb-3 bg-[rgb(220,220,220)] dark:bg-[rgb(30,30,30)]" />
-              <p className="text-sm sm:text-base text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+              <p className="text-sm sm:text-base text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
                 {i === 1
                   ? "Total Projects"
                   : i === 2
@@ -153,10 +153,10 @@ export function DashboardCards() {
             <Skeleton className="h-20 w-full mb-2" />
           ) : (
             <>
-              <div className="text-4xl sm:text-6xl font-bold text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
+              <div className="text-4xl sm:text-5xl font-bold text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
                 {data?.totalProjects || 0}
               </div>
-              <p className="text-sm sm:text-base text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-3">
+              <p className="text-sm sm:text-base text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] mt-3">
                 Total Projects
               </p>
             </>
@@ -172,7 +172,7 @@ export function DashboardCards() {
               <div className="text-4xl sm:text-5xl font-bold text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
                 {data?.totalSmells.toLocaleString() || 0}
               </div>
-              <p className="text-sm sm:text-base text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-3">
+              <p className="text-sm sm:text-base text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] mt-3">
                 Total Code Smells
               </p>
             </>
@@ -188,7 +188,7 @@ export function DashboardCards() {
               <div className="text-4xl sm:text-5xl font-bold text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
                 {maxCodeSmells.toLocaleString()}
               </div>
-              <p className="text-sm sm:text-base text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-3">
+              <p className="text-sm sm:text-base text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] mt-3">
                 Max Code Smells
               </p>
             </>
@@ -204,7 +204,7 @@ export function DashboardCards() {
               <div className="text-4xl sm:text-5xl font-bold text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
                 {parseFloat(data?.codeQuality || "0").toFixed(1)}%
               </div>
-              <p className="text-sm sm:text-base text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-3">
+              <p className="text-sm sm:text-base text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] mt-3">
                 Overall Code Quality
               </p>
             </>
@@ -212,17 +212,7 @@ export function DashboardCards() {
         </div>
       </div>
 
-      {/* Project Bars Chart */}
-      <ProjectBarsChart projectBars={data?.projectBars ?? []} />
-
-      {/* Pie Chart - Category Distribution */}
-      <CustomPieChart
-        chartData={data?.chartData ?? []}
-        title="Code Smell Distribution by Category"
-        description="Distribution of code smells by category"
-      />
-
-      {/* Pie Chart - Type Distribution */}
+      {/* Pie Chart - Type Distribution (First) */}
       <CustomPieChart
         chartData={
           data?.typeData?.map((item) => ({
@@ -234,6 +224,16 @@ export function DashboardCards() {
         title="Code Smell Distribution by Type"
         description="Distribution of code smells by type"
       />
+
+      {/* Pie Chart - Category Distribution (Second) */}
+      <CustomPieChart
+        chartData={data?.chartData ?? []}
+        title="Code Smell Distribution by Category"
+        description="Distribution of code smells by category"
+      />
+
+      {/* Project Bars Chart (Last) */}
+      <ProjectBarsChart projectBars={data?.projectBars ?? []} />
     </div>
   );
 }

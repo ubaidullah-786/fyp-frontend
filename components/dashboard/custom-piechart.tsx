@@ -51,7 +51,7 @@ const CustomTooltip = ({
         <p className="font-medium text-sm text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
           {data.name} ({percentage.toFixed(2)}%)
         </p>
-        <p className="text-sm text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+        <p className="text-sm text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
           Count: <span className="font-semibold">{data.value}</span>
         </p>
       </div>
@@ -69,7 +69,7 @@ const CustomLegend = ({ payload }: any) => {
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: entry.color }}
           />
-          <span className="text-xs text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+          <span className="text-xs text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
             {entry.value}
           </span>
         </div>
@@ -90,12 +90,12 @@ export function CustomPieChart({
           <CardTitle className="text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
             {title}
           </CardTitle>
-          <CardDescription className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+          <CardDescription className="text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
             {description}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px] flex items-center justify-center text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+          <div className="h-[300px] flex items-center justify-center text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
             No code smells detected
           </div>
         </CardContent>
@@ -112,7 +112,7 @@ export function CustomPieChart({
         <CardTitle className="text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
           {title}
         </CardTitle>
-        <CardDescription className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+        <CardDescription className="text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
           {description}
         </CardDescription>
       </CardHeader>

@@ -121,7 +121,7 @@ export default function ProjectsPage() {
       "bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 hover:shadow-lg transition-all cursor-pointer group";
 
     if (isExactMatch && searchQuery) {
-      return `${baseClass} !shadow-[0_0_0_2px_rgb(136,136,136)] dark:!shadow-[0_0_0_3px_rgb(60,61,60)] !border-[rgb(255,255,255)] dark:!border-[rgb(255,255,255)]/50`;
+      return `${baseClass} !shadow-[0_0_0_2px_rgb(60,61,60)]/20 dark:!shadow-[0_0_0_3px_rgb(60,61,60)] !border-[rgb(255,255,255)] dark:!border-[rgb(255,255,255)]/50`;
     }
     return baseClass;
   };
@@ -131,18 +131,18 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]">
       <div className="mb-8 sm:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
             Projects
           </h1>
-          <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
+          <p className="text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] mt-2 text-sm sm:text-base">
             Manage and monitor all your code quality projects
           </p>
         </div>
         <Link href="/upload">
-          <Button className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] whitespace-nowrap cursor-pointer">
+          <Button className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(250,250,250)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] whitespace-nowrap cursor-pointer">
             <Plus className="h-4 w-4" />
             Upload Project
           </Button>
@@ -151,13 +151,13 @@ export default function ProjectsPage() {
 
       <div className="mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[rgb(136,136,136)]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[rgb(143,143,143)] dark:text-[rgb(102,102,102)]" />
           <Input
             type="text"
             placeholder="Search Projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 !text-[14px] placeholder:text-[rgb(237,237,237)] dark:placeholder:text-[rgb(136,136,136)] !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!border-[rgb(245,245,245)] dark:hover:!border-[rgb(245,245,245)]/20 focus-visible:!border-[rgb(255,255,255)] dark:focus-visible:!border-[rgb(255,255,255)]/50 focus-visible:!shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:!shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:!ring-0 !outline-none focus-visible:!outline-none !transition-all"
+            className="pl-10 !text-[14px] placeholder:text-[rgb(143,143,143)] dark:placeholder:text-[rgb(102,102,102)] !border-[1.3px] !border-[rgb(0,0,0)]/10 dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!border-[rgb(0,0,0)]/20 dark:hover:!border-[rgb(245,245,245)]/20 focus-visible:!border-[rgb(255,255,255)] dark:focus-visible:!border-[rgb(255,255,255)]/50 focus-visible:!shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:!shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:!ring-0 !outline-none focus-visible:!outline-none !transition-all"
           />
         </div>
       </div>
@@ -204,13 +204,13 @@ export default function ProjectsPage() {
       ) : projects.length === 0 ? (
         <Card className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15">
           <CardContent className="flex flex-col items-center justify-center py-12">
-            <FileText className="h-16 w-16 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mb-4" />
+            <FileText className="h-16 w-16 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] mb-4" />
             <h3 className="text-lg font-semibold mb-2">No Projects Yet</h3>
-            <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] text-center mb-6 text-sm sm:text-base">
+            <p className="text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] text-center mb-6 text-sm sm:text-base">
               Upload your first project to start analyzing code quality
             </p>
             <Link href="/upload">
-              <Button className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)]">
+              <Button className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(250,250,250)] text-white dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)]">
                 Upload Project
               </Button>
             </Link>
@@ -219,9 +219,9 @@ export default function ProjectsPage() {
       ) : sortedProjects.length === 0 ? (
         <Card className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15">
           <CardContent className="flex flex-col items-center justify-center py-12">
-            <Search className="h-16 w-16 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mb-4" />
+            <Search className="h-16 w-16 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] mb-4" />
             <h3 className="text-lg font-semibold mb-2">No Projects Found</h3>
-            <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] text-center text-sm sm:text-base">
+            <p className="text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] text-center text-sm sm:text-base">
               No projects match your search query
             </p>
           </CardContent>
@@ -251,13 +251,13 @@ export default function ProjectsPage() {
                   </div>
                   <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:translate-x-1 transition-transform flex-shrink-0" />
                 </CardTitle>
-                <CardDescription className="line-clamp-2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] text-sm">
+                <CardDescription className="line-clamp-2 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] text-sm">
                   {project.description || "No description provided"}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+                  <div className="flex items-center gap-2 text-sm text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)]">
                     <AlertCircle className="h-4 w-4" />
                     <span>{project.totalSmells} code smells</span>
                   </div>
@@ -272,7 +272,7 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15">
-                  <div className="flex items-center gap-2 text-xs text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+                  <div className="flex items-center gap-2 text-xs text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)]">
                     <Calendar className="h-3 w-3" />
                     <span>{formatDate(project.createdAt)}</span>
                   </div>

@@ -258,7 +258,7 @@ export function Navbar() {
               className={`relative px-4 py-2 flex items-center gap-2 text-sm font-medium transition-all duration-200 rounded-sm hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)] ${
                 isActive
                   ? "text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]"
-                  : "text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(0,0,0)] dark:hover:text-[rgb(255,255,255)]"
+                  : "text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] hover:text-[rgb(0,0,0)] dark:hover:text-[rgb(255,255,255)]"
               }`}
             >
               <span data-text className="inline-block">
@@ -297,7 +297,7 @@ export function Navbar() {
             className={`relative px-4 py-2 flex items-center gap-2 text-sm font-medium transition-all duration-200 rounded-sm hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)]  transition-colors duration-400 ${
               isActive
                 ? "text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]"
-                : "text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(0,0,0)] dark:hover:text-[rgb(255,255,255)] hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)] transition-colors duration-400"
+                : "text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] hover:text-[rgb(0,0,0)] dark:hover:text-[rgb(255,255,255)] hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)] transition-colors duration-400"
             }`}
           >
             <span data-text className="inline-block">

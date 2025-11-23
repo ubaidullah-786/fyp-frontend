@@ -112,11 +112,11 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="mx-auto max-w-md px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+    <main className="mx-auto max-w-md px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]">
       <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
         Log in
       </h1>
-      <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
+      <p className="text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] mt-2 text-sm sm:text-base">
         Access your account to post ads, chat, and manage favorites.
       </p>
 
@@ -131,11 +131,11 @@ export default function LoginPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(237,237,237)] 
+            className="h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 
             dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] 
-            hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 
+            hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 
             focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 
-            focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] 
+            focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 
             dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] 
             focus-visible:outline-none transition-all"
           />
@@ -151,13 +151,13 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="pr-10 h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
+              className="pr-10 h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               tabIndex={-1}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
@@ -174,7 +174,7 @@ export default function LoginPage() {
         <Button
           type="submit"
           disabled={loading}
-          className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] cursor-pointer"
+          className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(250,250,250)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] cursor-pointer"
         >
           {loading ? "Logging in..." : "Log in"}
         </Button>
@@ -184,7 +184,7 @@ export default function LoginPage() {
         <p>
           Don't have an account?{" "}
           <Link
-            className="text-[rgb(82,168,255)] hover:underline transition-all"
+            className="text-[rgb(0,104,214)] hover:underline transition-all"
             href="/signup"
           >
             Sign Up
@@ -193,7 +193,7 @@ export default function LoginPage() {
         <p className="mt-2">
           Forgot your password?{" "}
           <Link
-            className="text-[rgb(82,168,255)] hover:underline transition-all"
+            className="text-[rgb(0,104,214)] hover:underline transition-all"
             href="/forgot-password"
           >
             Click here

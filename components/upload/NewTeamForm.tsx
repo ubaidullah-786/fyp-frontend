@@ -61,7 +61,7 @@ export function NewTeamForm({
           onChange={(e) => setNewTeamName(e.target.value)}
           onFocus={(e) => e.target.select()}
           disabled={loading}
-          className="mt-1.5 h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
+          className="mt-1.5 h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
         />
       </div>
 
@@ -77,7 +77,7 @@ export function NewTeamForm({
             value={memberSearch}
             onChange={(e) => searchMembers(e.target.value)}
             disabled={loading}
-            className="pl-10 h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(237,237,237)] dark:placeholder:text-[rgb(136,136,136)]"
+            className="pl-10 h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)]"
           />
         </div>
 

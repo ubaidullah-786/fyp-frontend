@@ -151,11 +151,11 @@ export function ProfileDropdown() {
           <>
             {/* User Info */}
             <div className="px-4 py-3">
-              <p className="text-[14px] font-medium text-[rgb(237,237,237)] truncate">
+              <p className="text-[14px] font-medium text-[rgb(23,23,23)] dark:text-[rgb(237,237,237)] truncate">
                 {user?.username}
               </p>
               <p
-                className="text-[14px] text-[rgb(161,161,161)] mt-0.5 truncate"
+                className="text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] mt-0.5 truncate"
                 title={user?.email}
               >
                 {user?.email}
@@ -166,7 +166,7 @@ export function ProfileDropdown() {
             <div className="px-2">
               <Link
                 href="/profile"
-                className="block px-3 py-2 text-[14px] text-[rgb(161,161,161)] hover:text-[rgb(237,237,237)] hover:bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
+                className="block px-3 py-2 text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] hover:text-[rgb(23,23,23)] dark:hover:text-[rgb(237,237,237)] hover:bg-[rgba(0,0,0,0.05)] dark:hover:bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
               >
                 Account Settings
               </Link>
@@ -177,7 +177,9 @@ export function ProfileDropdown() {
 
             {/* Theme */}
             <div className="px-4 py-2 flex items-center justify-between">
-              <span className="text-[14px] text-[rgb(161,161,161)]">Theme</span>
+              <span className="text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)]">
+                Theme
+              </span>
               <div className="flex gap-1.5">
                 <ThemeSelector />
               </div>
@@ -191,7 +193,7 @@ export function ProfileDropdown() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="w-full px-3 py-2 flex items-center justify-between text-[14px] text-[rgb(161,161,161)] hover:text-[rgb(237,237,237)] hover:bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer text-left"
+                className="w-full px-3 py-2 flex items-center justify-between text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] hover:text-[rgb(23,23,23)] dark:hover:text-[rgb(237,237,237)] hover:bg-[rgba(0,0,0,0.05)] dark:hover:bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer text-left"
               >
                 <span>Logout</span>
                 <LogOut className="size-4" />

@@ -36,7 +36,7 @@ export function ProjectDetailsSection({
             onChange={(e) => setTitle(e.target.value)}
             disabled={loading}
             required
-            className="h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
+            className="h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
           />
         </div>
       )}
@@ -46,13 +46,13 @@ export function ProjectDetailsSection({
         <Label htmlFor="description" className="text-sm sm:text-base">
           Description
         </Label>
-        <Textarea
+        <Input
           id="description"
+          type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={loading}
-          rows={4}
-          className="!text-sm sm:!text-base !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!border-[rgb(245,245,245)] dark:hover:!border-[rgb(245,245,245)]/20 focus-visible:!border-[rgb(255,255,255)] dark:focus-visible:!border-[rgb(255,255,255)]/50 focus-visible:!shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:!shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:!ring-0 !outline-none focus-visible:!outline-none !transition-all !resize-none"
+          className="h-20 sm:h-20 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
         />
       </div>
     </>

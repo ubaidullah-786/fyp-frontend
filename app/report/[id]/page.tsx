@@ -461,14 +461,14 @@ export default function ReportPage() {
     });
 
   return (
-    <div className="min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+    <div className="min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]">
       <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
         {/* Back to Dashboard Button */}
         <div className="mb-4">
           <Button
             onClick={() => router.push("/dashboard")}
             variant="outline"
-            className="h-10 px-4 text-sm !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!bg-[rgb(245,245,245)] dark:hover:!bg-[rgb(20,20,20)] hover:!text-[rgb(237,237,237)] !transition-all gap-2 text-[rgb(136,136,136)] cursor-pointer"
+            className="h-10 px-4 text-sm !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] dark:hover:!bg-[rgb(20,20,20)] hover:!bg-[rgb(242,242,242)] dark:hover:!text-[rgb(237,237,237)] !transition-all gap-2 dark:text-[rgb(136,136,136)] cursor-pointer"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Dashboard
@@ -519,7 +519,7 @@ export default function ReportPage() {
                         <DropdownMenuItem
                           key={version._id}
                           onClick={() => setSelectedVersionId(version._id)}
-                          className="block px-3 py-2 text-[14px] text-[rgb(161,161,161)] hover:!text-[rgb(237,237,237)] hover:!bg-[rgba(255,255,255,0.06)] dark:hover:!bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
+                          className="block px-3 py-2 text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] hover:!text-[rgb(23,23,23)] dark:hover:!text-[rgb(237,237,237)] hover:!bg-[rgba(0,0,0,0.05)] dark:hover:!bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
                         >
                           Version {version.version}
                           {version._id === project.latestVersion._id &&
@@ -543,13 +543,13 @@ export default function ReportPage() {
                   >
                     <DropdownMenuItem
                       onClick={downloadJson}
-                      className="block px-3 py-2 text-[14px] text-[rgb(161,161,161)] hover:!text-[rgb(237,237,237)] hover:!bg-[rgba(255,255,255,0.06)] dark:hover:!bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
+                      className="block px-3 py-2 text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] hover:!text-[rgb(23,23,23)] dark:hover:!text-[rgb(237,237,237)] hover:!bg-[rgba(0,0,0,0.05)] dark:hover:!bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
                     >
                       Download JSON
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={downloadCsv}
-                      className="block px-3 py-2 text-[14px] text-[rgb(161,161,161)] hover:!text-[rgb(237,237,237)] hover:!bg-[rgba(255,255,255,0.06)] dark:hover:!bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
+                      className="block px-3 py-2 text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] hover:!text-[rgb(23,23,23)] dark:hover:!text-[rgb(237,237,237)] hover:!bg-[rgba(0,0,0,0.05)] dark:hover:!bg-[rgba(255,255,255,0.06)] rounded-md transition-colors cursor-pointer"
                     >
                       Download CSV
                     </DropdownMenuItem>
@@ -560,7 +560,7 @@ export default function ReportPage() {
           </div>
         </div>
 
-        <div className="h-[1px] bg-[rgb(237,237,237)] dark:bg-[rgb(237,237,237)]/15 mb-6 sm:mb-8" />
+        <div className="h-[1px] bg-[rgb(0,0,0)]/10 dark:bg-[rgb(250,250,250)]/15 mb-6 sm:mb-8" />
 
         {/* Overview Tab */}
         {activeTab === "overview" && (
@@ -630,7 +630,7 @@ export default function ReportPage() {
                   {file ? (
                     <div className="flex items-center justify-between p-4 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg bg-white dark:bg-[rgb(10,10,10)]">
                       <div className="flex items-center gap-3">
-                        <FileArchive className="h-8 w-8 text-[rgb(82,168,255)]" />
+                        <FileArchive className="h-8 w-8 text-[rgb(0,104,214)]" />
                         <div>
                           <p className="text-sm font-medium text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)]">
                             {file.name}
@@ -717,7 +717,7 @@ export default function ReportPage() {
                     id="edit-title"
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
-                    className="h-10 sm:h-11 text-sm sm:text-base !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!border-[rgb(245,245,245)] dark:hover:!border-[rgb(245,245,245)]/20 focus-visible:!border-[rgb(255,255,255)] dark:focus-visible:!border-[rgb(255,255,255)]/50 focus-visible:!shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:!shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:!outline-none !transition-all"
+                    className="h-10 sm:h-11 text-sm sm:text-base border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
                   />
                 </div>
                 <div className="space-y-2">
@@ -732,7 +732,7 @@ export default function ReportPage() {
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
                     rows={3}
-                    className="text-sm sm:text-base !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!border-[rgb(245,245,245)] dark:hover:!border-[rgb(245,245,245)]/20 focus-visible:!border-[rgb(255,255,255)] dark:focus-visible:!border-[rgb(255,255,255)]/50 focus-visible:!shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:!shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:!outline-none !transition-all"
+                    className="text-sm sm:text-base !border-[1.3px] !border-[rgb(0,0,0)]/10 dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] hover:!border-[rgb(0,0,0)]/20 dark:hover:!border-[rgb(245,245,245)]/20 focus-visible:!border-[rgb(255,255,255)] dark:focus-visible:!border-[rgb(255,255,255)]/50 focus-visible:!shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:!shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:!outline-none !transition-all"
                   />
                 </div>
                 {(editTitle !== project?.title ||
@@ -756,7 +756,7 @@ export default function ReportPage() {
             </Card>
 
             {/* Delete Project */}
-            <Card className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(103,30,33)] dark:border-[rgb(103,30,33)]">
+            <Card className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(103,30,33)]">
               <CardHeader>
                 <CardTitle className="text-lg">Delete Project</CardTitle>
               </CardHeader>
@@ -808,9 +808,9 @@ export default function ReportPage() {
                         </ul>
                       </div>
                       <div>
-                        <label className="block text-[rgb(136,136,136)] text-xs sm:text-sm font-medium mb-2">
+                        <label className="block text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] text-xs sm:text-sm font-medium mb-2">
                           Type{" "}
-                          <span className="text-[rgb(255,255,255)]">
+                          <span className="text-[rgb(23,23,23)] dark:text-[rgb(255,255,255)]">
                             {project?.title}
                           </span>{" "}
                           to confirm:

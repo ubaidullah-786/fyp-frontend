@@ -88,7 +88,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans antialiased flex flex-col min-h-screen overflow-x-hidden bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]"
+        className="font-sans antialiased flex flex-col min-h-screen overflow-x-hidden bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]"
         style={{ minHeight: "100vh", height: "100%" }}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

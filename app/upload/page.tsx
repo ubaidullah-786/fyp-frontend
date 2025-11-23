@@ -503,12 +503,12 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+    <div className="container mx-auto max-w-2xl px-4 sm:px-6 py-6 sm:py-8 lg:py-12 min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]">
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
           Upload Project
         </h1>
-        <p className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] mt-2 text-sm sm:text-base">
+        <p className="text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] mt-2 text-sm sm:text-base">
           Upload a ZIP file containing your source code for analysis
         </p>
       </div>
@@ -516,7 +516,7 @@ export default function UploadPage() {
       <Card className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15">
         <CardHeader>
           <CardTitle className="text-xl sm:text-2xl">Project Details</CardTitle>
-          <CardDescription className="text-[rgb(136,136,136)] text-sm sm:text-base">
+          <CardDescription className="text-[rgb(102,102,102)] text-sm sm:text-base">
             Provide information about your project and upload the source code
           </CardDescription>
         </CardHeader>

@@ -165,7 +165,7 @@ export function TeamCard({
                 <Link
                   key={project._id}
                   href={`/report/${project._id}`}
-                  className="block text-sm font-medium text-[rgb(82,168,255)] hover:underline truncate"
+                  className="block text-sm font-medium text-[rgb(0,104,214)] hover:underline truncate"
                 >
                   {project.title}
                 </Link>

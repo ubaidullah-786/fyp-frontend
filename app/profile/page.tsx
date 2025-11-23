@@ -233,7 +233,7 @@ function DeleteAccountSection({
                   setDeleteInput("");
                 }}
                 disabled={saving}
-                className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
+                className="cursor-pointer bg-[rgb(250,250,250)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
               >
                 Cancel
               </Button>
@@ -575,7 +575,7 @@ function AccountUI() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]">
       <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
         Profile
       </h1>
@@ -713,7 +713,7 @@ function AccountUI() {
                     <Input
                       value={tempName}
                       onChange={(e) => setTempName(e.target.value)}
-                      className="border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
+                      className="border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
                     />
                   </div>
                   <div className="mt-3 flex gap-2">
@@ -730,7 +730,7 @@ function AccountUI() {
                         setEditingField(null);
                         setTempName(user?.name ?? "");
                       }}
-                      className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
+                      className="cursor-pointer bg-[rgb(250,250,250)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                     >
                       Cancel
                     </Button>
@@ -789,7 +789,7 @@ function AccountUI() {
                     <Input
                       value={tempEmail}
                       onChange={(e) => setTempEmail(e.target.value)}
-                      className="border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
+                      className="border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all"
                     />
                   </div>
                   <div className="mt-3 flex gap-2 items-center">
@@ -806,7 +806,7 @@ function AccountUI() {
                         setEditingField(null);
                         setTempEmail(user?.email ?? "");
                       }}
-                      className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
+                      className="cursor-pointer bg-[rgb(250,250,250)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                     >
                       Cancel
                     </Button>
@@ -835,7 +835,7 @@ function AccountUI() {
                           Unverified
                         </span>
                       </div>
-                      <div className="mt-1 text-xs sm:text-sm text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+                      <div className="mt-1 text-xs sm:text-sm text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)]">
                         A verification email has been sent to your pending
                         email. Open the link to confirm the change.
                       </div>
@@ -844,7 +844,7 @@ function AccountUI() {
                           variant="ghost"
                           onClick={cancelPendingEmail}
                           disabled={saving}
-                          className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
+                          className="cursor-pointer bg-[rgb(250,250,250)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                         >
                           Cancel pending change
                         </Button>
@@ -888,7 +888,7 @@ function AccountUI() {
                           type={showCurrentPassword ? "text" : "password"}
                           value={currPassword}
                           onChange={(e) => setCurrPassword(e.target.value)}
-                          className="pr-10 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)] dark:placeholder:text-[rgb(136,136,136)]"
+                          className="pr-10 border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(102,102,102)] dark:placeholder:text-[rgb(102,102,102)]"
                         />
                         <button
                           type="button"
@@ -896,7 +896,7 @@ function AccountUI() {
                             setShowCurrentPassword(!showCurrentPassword)
                           }
                           tabIndex={-1}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
                           aria-label={
                             showCurrentPassword
                               ? "Hide password"
@@ -916,13 +916,13 @@ function AccountUI() {
                           type={showNewPassword ? "text" : "password"}
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
-                          className="pr-10 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)] dark:placeholder:text-[rgb(136,136,136)]"
+                          className="pr-10 border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(102,102,102)] dark:placeholder:text-[rgb(102,102,102)]"
                         />
                         <button
                           type="button"
                           onClick={() => setShowNewPassword(!showNewPassword)}
                           tabIndex={-1}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
                           aria-label={
                             showNewPassword ? "Hide password" : "Show password"
                           }
@@ -942,7 +942,7 @@ function AccountUI() {
                           onChange={(e) =>
                             setNewPasswordConfirm(e.target.value)
                           }
-                          className="pr-10 border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(245,245,245)] dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2px_rgb(136,136,136)] dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(136,136,136)] dark:placeholder:text-[rgb(136,136,136)]"
+                          className="pr-10 border-[1.3px] border-[rgb(0,0,0)]/10 dark:border-[rgb(237,237,237)]/15 bg-white dark:bg-[rgb(10,10,10)] hover:border-[rgb(0,0,0)]/20 dark:hover:border-[rgb(245,245,245)]/20 focus-visible:border-[rgb(255,255,255)] dark:focus-visible:border-[rgb(255,255,255)]/50 focus-visible:shadow-[0_0_0_2.5px_rgb(60,61,60)]/20 dark:focus-visible:shadow-[0_0_0_3px_rgb(60,61,60)] focus-visible:outline-none transition-all placeholder:text-[rgb(102,102,102)] dark:placeholder:text-[rgb(102,102,102)]"
                         />
                         <button
                           type="button"
@@ -950,7 +950,7 @@ function AccountUI() {
                             setShowConfirmPassword(!showConfirmPassword)
                           }
                           tabIndex={-1}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgb(102,102,102)] dark:text-[rgb(102,102,102)] hover:text-[rgb(100,100,100)] dark:hover:text-[rgb(180,180,180)] transition-colors cursor-pointer"
                           aria-label={
                             showConfirmPassword
                               ? "Hide password"
@@ -984,7 +984,7 @@ function AccountUI() {
                           setShowNewPassword(false);
                           setShowConfirmPassword(false);
                         }}
-                        className="cursor-pointer bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
+                        className="cursor-pointer bg-[rgb(250,250,250)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 transition-colors"
                       >
                         Cancel
                       </Button>
@@ -1043,3 +1043,4 @@ function AccountUI() {
     </div>
   );
 }
+

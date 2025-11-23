@@ -63,16 +63,16 @@ export function FileList({
                   className={cn(
                     "h-4 w-4 flex-shrink-0 transition-colors duration-200",
                     isSelected
-                      ? "text-[rgb(255,255,255)] dark:text-[rgb(255,255,255)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
-                      : "text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
+                      ? "text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
+                      : "text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
                   )}
                 />
                 <span
                   className={cn(
                     "truncate transition-colors duration-200",
                     isSelected
-                      ? "text-[rgb(255,255,255)] dark:text-[rgb(255,255,255)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
-                      : "text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
+                      ? "text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
+                      : "text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)] group-hover:text-[rgb(0,0,0)] dark:group-hover:text-[rgb(237,237,237)]"
                   )}
                 >
                   {file.fileName}
@@ -83,8 +83,8 @@ export function FileList({
                   className={cn(
                     "ml-2 px-2 py-0.5 rounded-full text-xs font-medium flex-shrink-0 transition-colors duration-200",
                     isSelected
-                      ? "bg-[rgb(255,255,255)]/10 text-[rgb(255,255,255)]"
-                      : "bg-[rgb(136,136,136)]/20 text-[rgb(136,136,136)]"
+                      ? "bg-[rgb(102,102,102)]/20 text-[rgb(102,102,102)] dark:bg-[rgb(255,255,255)]/10 dark:text-[rgb(255,255,255)]"
+                      : "bg-[rgb(102,102,102)]/20 text-[rgb(102,102,102)] dark:bg-[rgb(136,136,136)]/20 dark:text-[rgb(136,136,136)]"
                   )}
                   style={{
                     backgroundColor:

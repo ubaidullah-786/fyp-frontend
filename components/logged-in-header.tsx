@@ -38,7 +38,7 @@ export function LoggedInHeader() {
   return (
     <>
       {/* Logo - fixed on left side with reduced height */}
-      <div className="fixed top-0 left-0 z-50 bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+      <div className="fixed top-0 left-0 z-50 bg-[rgb(255,255,255)] dark:bg-[rgb(0,0,0)]">
         <div className="flex h-14 items-center gap-2 sm:gap-3 pl-2 sm:pl-6 lg:pl-8">
           <div className="md:hidden">
             <MobileMenu />
@@ -48,7 +48,7 @@ export function LoggedInHeader() {
       </div>
 
       {/* Code Doctor + Profile - scrolls up, appears in same row */}
-      <div className="relative bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+      <div className="relative bg-[rgb(255,255,255)] dark:bg-[rgb(0,0,0)]">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Empty space on left to avoid logo overlap - matches landing header spacing */}
           <div style={{ width: "calc(1rem + 2rem)" }}></div>
@@ -73,7 +73,7 @@ export function LoggedInHeader() {
               : "absolute top-0 left-0 right-0"
           } z-40`}
         >
-          <div className="bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)] border-b border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20">
+          <div className="bg-[rgb(255,255,255)] dark:bg-[rgb(0,0,0)] border-b border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex h-14 items-center justify-between">
                 {/* LEFT DIV: Navbar content */}

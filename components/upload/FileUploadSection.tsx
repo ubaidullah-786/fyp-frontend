@@ -33,7 +33,7 @@ export function FileUploadSection({
             <div className="flex items-center gap-3">
               <div className="relative">
                 <FileArchive
-                  className={`h-8 w-8 text-[rgb(82,168,255)] transition-opacity duration-300 ${
+                  className={`h-8 w-8 text-[rgb(0,104,214)] transition-opacity duration-300 ${
                     fileLoading ? "opacity-30" : "opacity-100"
                   }`}
                 />
@@ -54,7 +54,7 @@ export function FileUploadSection({
                         cy="50"
                         r="45"
                         fill="none"
-                        stroke="rgb(82,168,255)"
+                        stroke="rgb(0,104,214)"
                         strokeWidth="8"
                         strokeDasharray="283"
                         strokeDashoffset="283"
@@ -104,7 +104,7 @@ export function FileUploadSection({
               </div>
               <div className="w-full bg-[rgb(237,237,237)] dark:bg-[rgb(237,237,237)]/15 rounded-full h-2">
                 <div
-                  className="bg-[rgb(82,168,255)] h-2 rounded-full transition-all duration-300"
+                  className="bg-[rgb(0,104,214)] h-2 rounded-full transition-all duration-300"
                   style={{ width: `${uploadProgress}%` }}
                 />
               </div>

@@ -299,7 +299,7 @@ export default function TeamsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)] p-4 md:p-8">
+      <div className="min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)] p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8 flex items-center justify-between">
@@ -357,7 +357,7 @@ export default function TeamsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)] p-4 md:p-8">
+    <div className="min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)] p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-46">
@@ -365,11 +365,11 @@ export default function TeamsPage() {
               Teams
             </h1>
             {activeTab === "your-teams" && myTeams.length > 0 && (
-              <p className="mt-2 text-sm text-[rgb(136,136,136)]">
+              <p className="mt-2 text-sm text-[rgb(102,102,102)]">
                 To upload project in a team, go to{" "}
                 <Link
                   href="/upload"
-                  className="text-[rgb(82,168,255)] font-medium hover:underline"
+                  className="text-[rgb(0,104,214)] font-medium hover:underline"
                 >
                   Upload
                 </Link>
@@ -378,7 +378,7 @@ export default function TeamsPage() {
           </div>
           <Button
             onClick={() => setIsCreatingTeam(true)}
-            className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(237,237,237)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] flex items-center gap-2 cursor-pointer"
+            className="h-10 sm:h-11 text-sm sm:text-base bg-[rgb(0,0,0)] dark:bg-[rgb(250,250,250)] text-[rgb(255,255,255)] dark:text-[rgb(0,0,0)] hover:bg-[rgb(30,30,30)] dark:hover:bg-[rgb(220,220,220)] flex items-center gap-2 cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             Create Team
@@ -392,8 +392,8 @@ export default function TeamsPage() {
                 onClick={() => setActiveTab("your-teams")}
                 className={`px-6 py-4 text-left transition-colors cursor-pointer rounded-lg ${
                   activeTab === "your-teams"
-                    ? "text-[rgb(237,237,237)] dark:text-[rgb(237,237,237)] bg-[rgb(0,0,0)] dark:bg-[rgb(30,30,30)]"
-                    : "text-[rgb(136,136,136)] hover:text-[rgb(237,237,237)] dark:hover:text-[rgb(237,237,237)] hover:bg-[rgb(0,0,0)] dark:hover:bg-[rgb(30,30,30)]"
+                    ? "text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] bg-[rgb(237,237,237)] dark:bg-[rgb(30,30,30)]"
+                    : "text-[rgb(102,102,102)] hover:text-[rgb(0,0,0)] dark:hover:text-[rgb(237,237,237)] hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)]"
                 }`}
               >
                 <div className="font-medium">Your Teams</div>
@@ -404,8 +404,8 @@ export default function TeamsPage() {
                   onClick={() => setActiveTab("added-to")}
                   className={`px-6 py-4 text-left transition-colors cursor-pointer rounded-lg ${
                     activeTab === "added-to"
-                      ? "text-[rgb(237,237,237)] dark:text-[rgb(237,237,237)] bg-[rgb(0,0,0)] dark:bg-[rgb(30,30,30)]"
-                      : "text-[rgb(136,136,136)] hover:text-[rgb(237,237,237)] dark:hover:text-[rgb(237,237,237)] hover:bg-[rgb(0,0,0)] dark:hover:bg-[rgb(30,30,30)]"
+                      ? "text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] bg-[rgb(237,237,237)] dark:bg-[rgb(30,30,30)]"
+                      : "text-[rgb(102,102,102)] hover:text-[rgb(0,0,0)] dark:hover:text-[rgb(237,237,237)] hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)]"
                   }`}
                 >
                   <div className="font-medium">Added To</div>
@@ -418,7 +418,7 @@ export default function TeamsPage() {
             {activeTab === "your-teams" && myTeams.length === 0 ? (
               <div className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-8">
                 <div className="text-center py-8">
-                  <p className="text-[rgb(136,136,136)]">
+                  <p className="text-[rgb(102,102,102)]">
                     Currently you don't own any team.
                   </p>
                 </div>
@@ -426,7 +426,7 @@ export default function TeamsPage() {
             ) : activeTab === "added-to" && addedToTeams.length === 0 ? (
               <div className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-8">
                 <div className="text-center py-8">
-                  <p className="text-[rgb(136,136,136)]">
+                  <p className="text-[rgb(102,102,102)]">
                     You haven't been added to any teams yet.
                   </p>
                 </div>
@@ -434,7 +434,7 @@ export default function TeamsPage() {
             ) : displayedTeams.length === 0 ? (
               <div className="text-center py-12">
                 <div className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15 rounded-lg p-8">
-                  <p className="text-[rgb(136,136,136)]">No teams available</p>
+                  <p className="text-[rgb(102,102,102)]">No teams available</p>
                 </div>
               </div>
             ) : (

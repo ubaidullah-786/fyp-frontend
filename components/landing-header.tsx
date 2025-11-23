@@ -24,7 +24,7 @@ export function LandingHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-[rgb(237,237,237)] dark:bg-[rgb(0,0,0)]">
+      <header className="sticky top-0 z-50 w-full bg-[rgb(255,255,255)] dark:bg-[rgb(0,0,0)]">
         {/* Top row: Menu + Logo + Actions */}
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* LEFT: menu + logo + Code Doctor */}
@@ -45,7 +45,7 @@ export function LandingHeader() {
               <Button
                 onClick={() => router.push("/signup")}
                 size="sm"
-                className="text-sm font-medium bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 cursor-pointer"
+                className="text-sm font-medium bg-[rgb(255,255,255)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(242,242,242)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 cursor-pointer"
                 style={{ borderRadius: "6px" }}
               >
                 Sign Up
@@ -57,7 +57,7 @@ export function LandingHeader() {
               <Button
                 onClick={() => router.push("/login")}
                 size="sm"
-                className="text-sm font-medium bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 cursor-pointer"
+                className="text-sm font-medium bg-[rgb(255,255,255)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(242,242,242)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 cursor-pointer"
                 style={{ borderRadius: "6px" }}
               >
                 Log In
@@ -70,7 +70,7 @@ export function LandingHeader() {
                 <Button
                   onClick={() => router.push("/login")}
                   size="sm"
-                  className="text-sm font-medium bg-[rgb(237,237,237)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(220,220,220)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 cursor-pointer"
+                  className="text-sm font-medium bg-[rgb(255,255,255)] dark:bg-[rgb(10,10,10)] text-[rgb(0,0,0)] dark:text-[rgb(237,237,237)] hover:bg-[rgb(242,242,242)] dark:hover:bg-[rgb(30,30,30)] border border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/20 cursor-pointer"
                   style={{ borderRadius: "6px" }}
                 >
                   Log In

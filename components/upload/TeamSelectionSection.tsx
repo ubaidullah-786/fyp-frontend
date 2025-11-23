@@ -116,7 +116,7 @@ export function TeamSelectionSection({
                       <SelectItem
                         key={team._id}
                         value={team._id}
-                        className="relative flex w-full cursor-pointer select-none items-center rounded-md py-2 pl-3 pr-3 text-[14px] text-[rgb(161,161,161)] outline-none transition-colors hover:!bg-[rgba(255,255,255,0.06)] hover:!text-[rgb(237,237,237)] focus:!bg-[rgba(255,255,255,0.06)] focus:!text-[rgb(237,237,237)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>span:first-child]:hidden"
+                        className="relative flex w-full cursor-pointer select-none items-center rounded-md py-2 pl-3 pr-3 text-[14px] text-[rgb(102,102,102)] dark:text-[rgb(161,161,161)] outline-none transition-colors hover:!bg-[rgba(0,0,0,0.05)] dark:hover:!bg-[rgba(255,255,255,0.06)] hover:!text-[rgb(23,23,23)] dark:hover:!text-[rgb(237,237,237)] focus:!bg-[rgba(0,0,0,0.05)] dark:focus:!bg-[rgba(255,255,255,0.06)] focus:!text-[rgb(23,23,23)] dark:focus:!text-[rgb(237,237,237)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>span:first-child]:hidden"
                       >
                         <div className="flex items-center gap-2">
                           <div

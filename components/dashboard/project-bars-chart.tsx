@@ -35,20 +35,43 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
     return Math.max(...projectBars.map((p) => p.totalSmells));
   }, [projectBars]);
 
-  // Available Y-axis scale options (0-100, 200, 300, ..., 2000)
+  // Generate scale options with dynamic gaps based on max smells
   const scaleOptions = useMemo(() => {
-    const options = [100];
-    for (let i = 200; i <= 2000; i += 100) {
+    if (maxProjectSmells === 0) return [20];
+
+    // Determine gap based on max smells
+    let gap: number;
+    if (maxProjectSmells < 100) {
+      gap = 10;
+    } else if (maxProjectSmells < 200) {
+      gap = 20;
+    } else if (maxProjectSmells <= 1000) {
+      gap = 50;
+    } else {
+      gap = 100;
+    }
+
+    const roundedMax = Math.ceil(maxProjectSmells / gap) * gap; // Round up to nearest gap
+    const options: number[] = [];
+
+    // Generate options: gap, 2*gap, 3*gap, ..., up to roundedMax
+    for (let i = gap; i <= roundedMax; i += gap) {
       options.push(i);
     }
-    return options;
-  }, []);
 
-  // Find the optimal default scale (next hundred above max smells)
+    // Ensure we have at least the max value
+    if (options.length === 0 || options[options.length - 1] < roundedMax) {
+      options.push(roundedMax);
+    }
+
+    return options;
+  }, [maxProjectSmells]);
+
+  // Default scale is the max value (selected by default)
   const defaultScale = useMemo(() => {
-    if (maxProjectSmells === 0) return 100;
-    return scaleOptions.find((scale) => scale >= maxProjectSmells) || 2000;
-  }, [maxProjectSmells, scaleOptions]);
+    if (scaleOptions.length === 0) return 20;
+    return scaleOptions[scaleOptions.length - 1];
+  }, [scaleOptions]);
 
   const [maxSmells, setMaxSmells] = useState(defaultScale);
 
@@ -70,14 +93,14 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
               ? "Project Version Analysis"
               : "Projects Analysis"}
           </CardTitle>
-          <CardDescription className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+          <CardDescription className="text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
             {isVersionAnalysis
               ? "Code smells and quality per version"
               : "Code smells and quality per project"}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px] flex items-center justify-center text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+          <div className="h-[300px] flex items-center justify-center text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
             No projects available
           </div>
         </CardContent>
@@ -136,7 +159,7 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                 ? "Project Version Analysis"
                 : "Projects Analysis"}
             </CardTitle>
-            <CardDescription className="text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+            <CardDescription className="text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
               {isVersionAnalysis
                 ? "Code smells and quality per version"
                 : "Code smells and quality per project"}
@@ -144,17 +167,17 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
           </div>
 
           {/* Y-axis Scale Selector */}
-          <div className="flex flex-col items-end gap-2 mt-4">
+          <div className="flex flex-col items-center gap-2 mt-4">
             <div className="flex items-center gap-2">
               {/* Status bar with scale points */}
-              <div className="relative flex items-center">
+              <div className="relative flex items-center justify-center">
                 {/* Y-axis label above first selector */}
-                <span className="absolute -top-5 left-0 text-xs font-medium text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)] whitespace-nowrap">
+                <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-medium text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)] whitespace-nowrap">
                   Y-axis Max Code Smells
                 </span>
 
                 {/* Line connecting all points */}
-                <div className="absolute left-0 right-0 h-[2px] bg-[rgb(69,69,69)]" />
+                <div className="absolute left-0 right-0 h-[2px] bg-[rgb(201,201,201)]" />
 
                 {/* Scale points */}
                 <div className="relative flex items-center gap-[2px]">
@@ -171,8 +194,8 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                           <div
                             className={`w-[2px] h-[2px] ${
                               isBeforeSelected
-                                ? "bg-[rgb(82,168,255)]"
-                                : "bg-[rgb(69,69,69)]"
+                                ? "bg-[rgb(0,104,214)]"
+                                : "bg-[rgb(201,201,201)]"
                             }`}
                           />
                         )}
@@ -184,10 +207,10 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                           className="relative w-5 h-5 rounded-full flex items-center justify-center transition-all cursor-pointer hover:scale-110 z-10"
                           style={{
                             backgroundColor: isSelected
-                              ? "rgb(82, 168, 255)"
+                              ? "rgb(0,104,214)"
                               : isBeforeSelected
-                              ? "rgb(82, 168, 255)"
-                              : "rgb(69, 69, 69)",
+                              ? "rgb(0,104,214)"
+                              : "rgb(201,201,201)",
                           }}
                           title={`${scale} smells`}
                         >
@@ -206,7 +229,7 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                             className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] whitespace-nowrap"
                             style={{
                               color: isSelected
-                                ? "rgb(82, 168, 255)"
+                                ? "rgb(0,104,214)"
                                 : "rgb(136, 136, 136)",
                             }}
                           >
@@ -292,12 +315,60 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
               Code Smells
             </text>
 
+            {/* X-axis label */}
+            <text
+              x={leftPadding + (chartWidth - leftPadding - rightPadding) / 2}
+              y={chartHeight - 20}
+              textAnchor="middle"
+              className="text-sm font-semibold fill-[rgb(0,0,0)] dark:fill-[rgb(255,255,255)]"
+            >
+              {isVersionAnalysis ? "Versions" : "Projects"}
+            </text>
+
             {/* Bars */}
             {projectBars.map((project, index) => {
               const barHeight = getBarHeight(project.totalSmells);
               const barX = getBarX(index);
               const barY = getBarY(project.totalSmells);
               const isHovered = hoveredIndex === index;
+
+              // Colorful bars - cycle through vibrant colors
+              const barColors = [
+                {
+                  normal: "fill-[rgb(59,130,246)]",
+                  hover: "fill-[rgb(37,99,235)]",
+                }, // Blue
+                {
+                  normal: "fill-[rgb(16,185,129)]",
+                  hover: "fill-[rgb(5,150,105)]",
+                }, // Green
+                {
+                  normal: "fill-[rgb(249,115,22)]",
+                  hover: "fill-[rgb(234,88,12)]",
+                }, // Orange
+                {
+                  normal: "fill-[rgb(139,92,246)]",
+                  hover: "fill-[rgb(124,58,237)]",
+                }, // Purple
+                {
+                  normal: "fill-[rgb(236,72,153)]",
+                  hover: "fill-[rgb(219,39,119)]",
+                }, // Pink
+                {
+                  normal: "fill-[rgb(234,179,8)]",
+                  hover: "fill-[rgb(202,138,4)]",
+                }, // Yellow
+                {
+                  normal: "fill-[rgb(20,184,166)]",
+                  hover: "fill-[rgb(13,148,136)]",
+                }, // Teal
+                {
+                  normal: "fill-[rgb(239,68,68)]",
+                  hover: "fill-[rgb(220,38,38)]",
+                }, // Red
+              ];
+              const colorIndex = index % barColors.length;
+              const barColor = barColors[colorIndex];
 
               return (
                 <g key={project.id}>
@@ -308,9 +379,7 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                     width={barWidth}
                     height={barHeight}
                     className={`transition-all duration-200 cursor-pointer ${
-                      isHovered
-                        ? "fill-[rgb(139,92,246)] dark:fill-[rgb(167,139,250)]"
-                        : "fill-[rgb(209,213,219)] dark:fill-[rgb(55,65,81)]"
+                      isHovered ? barColor.hover : barColor.normal
                     }`}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
@@ -328,11 +397,9 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
               const tooltipDims = getTooltipDimensions(project.title);
               const nameBoxDims = getNameBoxDimensions(project.title);
 
-              if (!isHovered) return null;
-
               return (
                 <g key={`tooltip-${project.id}`}>
-                  {/* Horizontal line from bar top to y-axis */}
+                  {/* Horizontal line from bar top to y-axis - ALWAYS VISIBLE */}
                   <line
                     x1={barX}
                     y1={barY}
@@ -344,7 +411,7 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                     className="text-[rgb(249,115,22)] dark:text-[rgb(251,146,60)]"
                   />
 
-                  {/* Total smells label box */}
+                  {/* Total smells label box - ALWAYS VISIBLE */}
                   <g>
                     <rect
                       x={leftPadding - 80}
@@ -364,78 +431,90 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                     </text>
                   </g>
 
-                  {/* Project Name Tooltip (below bar) */}
-                  <g>
-                    <rect
-                      x={barX - nameBoxDims.width / 2}
-                      y={chartHeight - bottomPadding + 15}
-                      width={nameBoxDims.width}
-                      height={nameBoxDims.height}
-                      rx={6}
-                      className="fill-[rgb(139,92,246)] dark:fill-[rgb(167,139,250)]"
+                  {/* Project Name Tooltip (below bar) - ONLY ON HOVER */}
+                  {isHovered && (
+                    <g>
+                      <rect
+                        x={barX - nameBoxDims.width / 2}
+                        y={chartHeight - bottomPadding + 15}
+                        width={nameBoxDims.width}
+                        height={nameBoxDims.height}
+                        rx={6}
+                        className="fill-[rgb(139,92,246)] dark:fill-[rgb(167,139,250)]"
+                      />
+                      <text
+                        x={barX}
+                        y={
+                          chartHeight -
+                          bottomPadding +
+                          15 +
+                          nameBoxDims.height / 2
+                        }
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="text-sm font-bold fill-black"
+                      >
+                        {project.title}
+                      </text>
+                    </g>
+                  )}
+
+                  {/* Diagonal line from bar center - ONLY ON HOVER */}
+                  {isHovered && (
+                    <line
+                      x1={barX}
+                      y1={barY + barHeight / 2}
+                      x2={barX + 40}
+                      y2={barY + barHeight / 2 - 40}
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeDasharray="5 3"
+                      className="text-[rgb(16,185,129)] dark:text-[rgb(52,211,153)]"
                     />
-                    <text
-                      x={barX}
-                      y={
-                        chartHeight -
-                        bottomPadding +
-                        15 +
-                        nameBoxDims.height / 2
-                      }
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      className="text-sm font-bold fill-black"
-                    >
-                      {project.title}
-                    </text>
-                  </g>
+                  )}
 
-                  {/* Diagonal line from bar center */}
-                  <line
-                    x1={barX}
-                    y1={barY + barHeight / 2}
-                    x2={barX + 40}
-                    y2={barY + barHeight / 2 - 40}
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeDasharray="5 3"
-                    className="text-[rgb(16,185,129)] dark:text-[rgb(52,211,153)]"
-                  />
-
-                  {/* Horizontal line to quality label */}
-                  <line
-                    x1={barX + 40}
-                    y1={barY + barHeight / 2 - 40}
-                    x2={barX + 70}
-                    y2={barY + barHeight / 2 - 40}
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeDasharray="5 3"
-                    className="text-[rgb(16,185,129)] dark:text-[rgb(52,211,153)]"
-                  />
-
-                  {/* Quality score label box - dynamic size */}
-                  <g>
-                    <rect
-                      x={barX + 70}
-                      y={barY + barHeight / 2 - 40 - tooltipDims.height / 2}
-                      width={tooltipDims.width}
-                      height={tooltipDims.height}
-                      rx={6}
-                      className="fill-[rgb(16,185,129)] dark:fill-[rgb(52,211,153)]"
+                  {/* Horizontal line to quality label - ONLY ON HOVER */}
+                  {isHovered && (
+                    <line
+                      x1={barX + 40}
+                      y1={barY + barHeight / 2 - 40}
+                      x2={barX + 70}
+                      y2={barY + barHeight / 2 - 40}
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeDasharray="5 3"
+                      className="text-[rgb(16,185,129)] dark:text-[rgb(52,211,153)]"
                     />
-                    {/* Quality score */}
-                    <text
-                      x={barX + 70 + tooltipDims.width / 2}
-                      y={
-                        barY + barHeight / 2 - 40 - tooltipDims.height / 2 + 28
-                      }
-                      textAnchor="middle"
-                      className="text-sm font-bold fill-black"
-                    >
-                      Quality: {project.qualityScore.toFixed(1)}%
-                    </text>
-                  </g>
+                  )}
+
+                  {/* Quality score label box - ONLY ON HOVER */}
+                  {isHovered && (
+                    <g>
+                      <rect
+                        x={barX + 70}
+                        y={barY + barHeight / 2 - 40 - tooltipDims.height / 2}
+                        width={tooltipDims.width}
+                        height={tooltipDims.height}
+                        rx={6}
+                        className="fill-[rgb(16,185,129)] dark:fill-[rgb(52,211,153)]"
+                      />
+                      {/* Quality score */}
+                      <text
+                        x={barX + 70 + tooltipDims.width / 2}
+                        y={
+                          barY +
+                          barHeight / 2 -
+                          40 -
+                          tooltipDims.height / 2 +
+                          28
+                        }
+                        textAnchor="middle"
+                        className="text-sm font-bold fill-black"
+                      >
+                        Quality: {project.qualityScore.toFixed(1)}%
+                      </text>
+                    </g>
+                  )}
                 </g>
               );
             })}
@@ -446,13 +525,13 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
         <div className="flex flex-wrap gap-4 justify-center mt-6 items-center">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-[rgb(249,115,22)] dark:bg-[rgb(251,146,60)]" />
-            <span className="text-xs text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+            <span className="text-xs text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
               Total Code Smells
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-[rgb(16,185,129)] dark:bg-[rgb(52,211,153)]" />
-            <span className="text-xs text-[rgb(136,136,136)] dark:text-[rgb(136,136,136)]">
+            <span className="text-xs text-[rgb(102,102,102)] dark:text-[rgb(136,136,136)]">
               Code Quality Score
             </span>
           </div>
