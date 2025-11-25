@@ -206,9 +206,15 @@ export function Navbar() {
     isOwner,
   ]);
 
-  // If on report page or code editor page, show report tabs
+  // If on report page or code editor page, show all navigation items with report tabs in the middle
   if (isReportSection && projectId) {
     const reportTabs = [
+      {
+        name: "Dashboard",
+        path: "/dashboard",
+        showWhen: "loggedInWithProjects",
+      },
+      { name: "Projects", path: "/projects", showWhen: "loggedInWithProjects" },
       {
         name: "Overview",
         value: "overview",
@@ -228,7 +234,21 @@ export function Navbar() {
             },
           ]
         : []),
+      { name: "Teams", path: "/teams", showWhen: "loggedIn" },
+      { name: "Upload", path: "/upload", showWhen: "loggedIn" },
     ];
+
+    // Filter items based on visibility rules
+    const visibleReportTabs = reportTabs.filter((item: any) => {
+      if (!projectsChecked) return false;
+      if (!item.showWhen) return true; // Report-specific tabs (Overview, View Code, Settings)
+      if (item.showWhen === "always") return true;
+      if (item.showWhen === "loggedIn" && isLoggedIn) return true;
+      if (item.showWhen === "loggedInWithProjects" && isLoggedIn && hasProjects)
+        return true;
+      if (item.showWhen === "loggedOut" && !isLoggedIn) return true;
+      return false;
+    });
 
     return (
       <div
@@ -245,16 +265,21 @@ export function Navbar() {
           }}
         />
 
-        {reportTabs.map((tab) => {
-          const isActive = isCodeEditorPage
-            ? tab.value === "code"
-            : activeTab === tab.value;
+        {visibleReportTabs.map((tab: any) => {
+          // Determine if this is a report-specific tab or regular nav item
+          const isReportTab = tab.hasOwnProperty("value");
+          const href = isReportTab ? tab.href : tab.path;
+          const isActive = isReportTab
+            ? isCodeEditorPage
+              ? tab.value === "code"
+              : activeTab === tab.value
+            : pathname === tab.path;
 
           return (
             <Link
-              key={tab.value}
-              href={tab.href}
-              data-path={tab.href}
+              key={isReportTab ? tab.value : tab.path}
+              href={href}
+              data-path={href}
               className={`relative px-4 py-2 flex items-center gap-2 text-sm font-medium transition-all duration-200 rounded-sm hover:bg-[rgb(237,237,237)] dark:hover:bg-[rgb(30,30,30)] ${
                 isActive
                   ? "text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]"

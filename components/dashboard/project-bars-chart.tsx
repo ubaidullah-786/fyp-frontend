@@ -152,8 +152,8 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
   return (
     <Card className="bg-white dark:bg-[rgb(10,10,10)] border-[1.3px] border-[rgb(237,237,237)] dark:border-[rgb(237,237,237)]/15">
       <CardHeader>
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
+        <div className="flex items-start justify-between">
+          <div className="">
             <CardTitle className="text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)]">
               {isVersionAnalysis
                 ? "Project Version Analysis"
@@ -167,12 +167,12 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
           </div>
 
           {/* Y-axis Scale Selector */}
-          <div className="flex flex-col items-center gap-2 mt-4">
+          <div className="flex flex-col items-center gap-2 mt-4 mr-25">
             <div className="flex items-center gap-2">
               {/* Status bar with scale points */}
               <div className="relative flex items-center justify-center">
                 {/* Y-axis label above first selector */}
-                <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-medium text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)] whitespace-nowrap">
+                <span className="absolute -top-5 left-0 text-xs font-medium text-[rgb(0,0,0)] dark:text-[rgb(255,255,255)] whitespace-nowrap">
                   Y-axis Max Code Smells
                 </span>
 
@@ -216,26 +216,23 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                         >
                           {isSelected && (
                             <Check
-                              className="w-3 h-3"
-                              style={{ color: "rgb(10, 10, 10)" }}
+                              className="w-3 h-3 text-white dark:text-white"
                               strokeWidth={3}
                             />
                           )}
                         </button>
 
-                        {/* Scale label (show every 5th, selected, or last item) */}
-                        {(index % 5 === 0 || isSelected || isLastItem) && (
-                          <span
-                            className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] whitespace-nowrap"
-                            style={{
-                              color: isSelected
-                                ? "rgb(0,104,214)"
-                                : "rgb(136, 136, 136)",
-                            }}
-                          >
-                            {scale}
-                          </span>
-                        )}
+                        {/* Scale label (show all) */}
+                        <span
+                          className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] whitespace-nowrap"
+                          style={{
+                            color: isSelected
+                              ? "rgb(0,104,214)"
+                              : "rgb(136, 136, 136)",
+                          }}
+                        >
+                          {scale}
+                        </span>
                       </div>
                     );
                   })}
@@ -307,8 +304,8 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
 
             {/* Y-axis label */}
             <text
-              x={20}
-              y={topPadding - 15}
+              x={25}
+              y={topPadding - 25}
               textAnchor="start"
               className="text-sm font-semibold fill-[rgb(0,0,0)] dark:fill-[rgb(255,255,255)]"
             >
@@ -318,7 +315,7 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
             {/* X-axis label */}
             <text
               x={leftPadding + (chartWidth - leftPadding - rightPadding) / 2}
-              y={chartHeight - 20}
+              y={chartHeight - 45}
               textAnchor="middle"
               className="text-sm font-semibold fill-[rgb(0,0,0)] dark:fill-[rgb(255,255,255)]"
             >
@@ -370,6 +367,29 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
               const colorIndex = index % barColors.length;
               const barColor = barColors[colorIndex];
 
+              // Get actual color values for this bar
+              const barColorValue = [
+                "rgb(59,130,246)", // Blue
+                "rgb(16,185,129)", // Green
+                "rgb(249,115,22)", // Orange
+                "rgb(139,92,246)", // Purple
+                "rgb(236,72,153)", // Pink
+                "rgb(234,179,8)", // Yellow
+                "rgb(20,184,166)", // Teal
+                "rgb(239,68,68)", // Red
+              ][colorIndex];
+
+              const barColorValueDark = [
+                "rgb(37,99,235)", // Blue dark
+                "rgb(5,150,105)", // Green dark
+                "rgb(234,88,12)", // Orange dark
+                "rgb(124,58,237)", // Purple dark
+                "rgb(219,39,119)", // Pink dark
+                "rgb(202,138,4)", // Yellow dark
+                "rgb(13,148,136)", // Teal dark
+                "rgb(220,38,38)", // Red dark
+              ][colorIndex];
+
               return (
                 <g key={project.id}>
                   {/* Bar */}
@@ -397,6 +417,21 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
               const tooltipDims = getTooltipDimensions(project.title);
               const nameBoxDims = getNameBoxDimensions(project.title);
 
+              // Get color index for this bar
+              const colorIndex = index % 8;
+
+              // Get actual color values for this bar
+              const barColorValue = [
+                "rgb(59,130,246)", // Blue
+                "rgb(16,185,129)", // Green
+                "rgb(249,115,22)", // Orange
+                "rgb(139,92,246)", // Purple
+                "rgb(236,72,153)", // Pink
+                "rgb(234,179,8)", // Yellow
+                "rgb(20,184,166)", // Teal
+                "rgb(239,68,68)", // Red
+              ][colorIndex];
+
               return (
                 <g key={`tooltip-${project.id}`}>
                   {/* Horizontal line from bar top to y-axis - ALWAYS VISIBLE */}
@@ -405,10 +440,9 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                     y1={barY}
                     x2={leftPadding - 15}
                     y2={barY}
-                    stroke="currentColor"
+                    stroke={barColorValue}
                     strokeWidth="2"
                     strokeDasharray="5 3"
-                    className="text-[rgb(249,115,22)] dark:text-[rgb(251,146,60)]"
                   />
 
                   {/* Total smells label box - ALWAYS VISIBLE */}
@@ -419,13 +453,13 @@ export function ProjectBarsChart({ projectBars }: ProjectBarsChartProps) {
                       width={60}
                       height={36}
                       rx={6}
-                      className="fill-[rgb(249,115,22)] dark:fill-[rgb(251,146,60)]"
+                      fill={barColorValue}
                     />
                     <text
                       x={leftPadding - 50}
                       y={barY + 6}
                       textAnchor="middle"
-                      className="text-sm font-bold fill-black"
+                      className="text-sm font-bold fill-white"
                     >
                       {project.totalSmells}
                     </text>

@@ -463,18 +463,6 @@ export default function ReportPage() {
   return (
     <div className="min-h-screen bg-[rgb(250,250,250)] dark:bg-[rgb(0,0,0)]">
       <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
-        {/* Back to Dashboard Button */}
-        <div className="mb-4">
-          <Button
-            onClick={() => router.push("/dashboard")}
-            variant="outline"
-            className="h-10 px-4 text-sm !border-[1.3px] !border-[rgb(237,237,237)] dark:!border-[rgb(237,237,237)]/15 !bg-white dark:!bg-[rgb(10,10,10)] dark:hover:!bg-[rgb(20,20,20)] hover:!bg-[rgb(242,242,242)] dark:hover:!text-[rgb(237,237,237)] !transition-all gap-2 dark:text-[rgb(136,136,136)] cursor-pointer"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Dashboard
-          </Button>
-        </div>
-
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
